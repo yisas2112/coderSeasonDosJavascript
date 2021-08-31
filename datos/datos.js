@@ -6,3 +6,4 @@ let productos = [
     {id: 5, categoria: "Vinos", nombre: "Vino Trumpeter Malbec", marca: "Trumpeter", precio: 550, stock: 60, img:"./assets/Trumpeter_Malbec_p7xpdj.jpg"},
     {id: 6, categoria: "Aperitivo", nombre: "Vodka Bombay 750ML", marca: "Bombay", precio: 2050, stock: 60, img:"./assets/BOMBAY_750CC_750cc_1.jpg"}
 ]
+
