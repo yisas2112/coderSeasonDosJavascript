@@ -26,6 +26,7 @@ $(document).ready(function(){
 
 let contenedor = document.getElementById('main'); 
 
+
 let contador = 0  
 let stockmax = 20;
 
@@ -36,6 +37,7 @@ function esMenor(){
 
     principal.innerHTML = `<h1>Para poder ingresar a la página debe ser mayor de Edad</h1>`
 
+    
     contenedor.appendChild(principal)   
 }
 
@@ -45,10 +47,12 @@ function esMenor(){
 function esMayor(){
     for(const produ of productos){        
         let principal = document.createElement('div');
-        
-        principal.classList.add("card__products");    
-        principal.classList.add("col-3");
-        principal.classList.add("text-center");
+        $(principal).addClass( "card__products" );
+        $(principal).addClass( "col-3" );
+        $(principal).addClass( "text-center");
+        // principal.classList.add("card__products");    
+        // principal.classList.add("col-3");
+        // principal.classList.add("text-center");
         
         
         principal.innerHTML = `
@@ -70,7 +74,8 @@ function esMayor(){
                 </div>
             </div>    
         `;
-    
+        
+        
         contenedor.appendChild(principal)   
     }
 }
