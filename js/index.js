@@ -1,41 +1,81 @@
 
-// let edad = confirm('¿Sos mayor de 18?');
+$(document).ready(function(){
+    
+    let edadLocal =  localStorage.getItem('edad');
+    console.log(edadLocal)
+    if(edadLocal == null ){
+        console.log('asd')
+        edadLocal = confirm('¿Sos mayor de 18?');         
+        edadLocal == true ? esMayor(): esMenor();
+    }else{      
+                
+        console.log(edadLocal)       
+        edadLocal == 'true' ? esMayor(): esMenor();
+        
+    }
+
+    localStorage.setItem('edad', edadLocal);
+})
+
+
+
+
+
+
+
 
 let contenedor = document.getElementById('main'); 
+
 let contador = 0  
 let stockmax = 20;
 
-for(const produ of productos){        
+
+
+function esMenor(){
     let principal = document.createElement('div');
-    principal.classList.add("card__products");
-    principal.classList.add("col-3");
-    principal.classList.add("text-center");
-    
-    
-    principal.innerHTML = `
-    <div class="card" style="width: 18rem;">
-            <img src=${produ.img} class="card-img-top" alt="...">
-            <div class="card-body">
-            <h5 class="card-title">${produ.nombre}</h5>
-            <p class="card-text">Marca: ${produ.marca}</p>
-            <p class="card-text"> $${produ.precio}</p>
-            </div>
-            <ul class="list-group list-group-flush">                            
-            <li class="list-group-item">Categoria: ${produ.categoria}</li>
-            </ul>
-            <div class="card-body">
-            <button href="#" class="card-link" onclick={sumarContador(${produ.id},${produ.stock})}>+</button>
-            <div id="contadorProduct-${produ.id}">${contador}</div>
-            <button href="#" class="card-link" onclick={restarContador(${produ.id})}>-</button>   
-            <button onclick=agregarCarrito(${produ.id})>Agregar Carrito</button>         
-            </div>
-        </div>    
-    `;
+
+    principal.innerHTML = `<h1>Para poder ingresar a la página debe ser mayor de Edad</h1>`
 
     contenedor.appendChild(principal)   
-
-    
 }
+
+
+
+
+function esMayor(){
+    for(const produ of productos){        
+        let principal = document.createElement('div');
+        
+        principal.classList.add("card__products");    
+        principal.classList.add("col-3");
+        principal.classList.add("text-center");
+        
+        
+        principal.innerHTML = `
+        <div class="card" style="width: 18rem;">
+                <img src=${produ.img} class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class="card-title">${produ.nombre}</h5>
+                <p class="card-text">Marca: ${produ.marca}</p>
+                <p class="card-text"> $${produ.precio}</p>
+                </div>
+                <ul class="list-group list-group-flush">                            
+                <li class="list-group-item">Categoria: ${produ.categoria}</li>
+                </ul>
+                <div class="card-body">
+                <button href="#" class="card-link" onclick={sumarContador(${produ.id},${produ.stock})}>+</button>
+                <div id="contadorProduct-${produ.id}">${contador}</div>
+                <button href="#" class="card-link" onclick={restarContador(${produ.id})}>-</button>   
+                <button onclick=agregarCarrito(${produ.id})>Agregar Carrito</button>         
+                </div>
+            </div>    
+        `;
+    
+        contenedor.appendChild(principal)   
+    }
+}
+
+
 
 /*CONTADORES*/ 
 /*  Los contadores nunca van a sumar por encima del stock actual ni restar en negativo */
@@ -88,9 +128,9 @@ let carrito = [];
 
 const agregarCarrito = (id)=>{    
     /* Existe producto se inicializa en false */
-    let existeProducto = false;   
-
-    /*Se cerre el carrito para ver si el producto que se quiere agregar ya existe.
+    let existeProducto = false;       
+    
+    /*Se recorre el carrito para ver si el producto que se quiere agregar ya existe.
     Si existe le variable existe producto la vuelve a true*/
     carrito.forEach((e)=>{        
         if(id === e.id){
@@ -103,7 +143,7 @@ const agregarCarrito = (id)=>{
     Además si el producto ya existe en el carrito se le pregunta al usuario si desea actualizar la cantidad*/ 
     for(const produ of productos){                  
         if(id == produ.id && existeProducto == false) {                
-            producto = new Producto(produ.id, produ.categoria, produ.nombre, produ.marca, produ.precio, produ.stock, contador);            
+            producto = new Producto(produ.id, produ.categoria, produ.nombre, produ.marca, produ.precio, produ.stock, contador, produ.img);            
             carrito.push(producto)            
             console.log('no existe')            
             
@@ -135,7 +175,7 @@ const agregarCarrito = (id)=>{
 
 
 class Producto{
-    constructor(id,categoria, nombre, marca, precio, stock, cantidad){
+    constructor(id,categoria, nombre, marca, precio, stock, cantidad,img){
         this.id = id;
         this.categoria = categoria;
         this.nombre = nombre;
@@ -143,6 +183,7 @@ class Producto{
         this.precio = precio;
         this.stock = stock;
         this.cantidad = cantidad;
+        this.img = img;
     }
 
     Carrito(id, contador){
@@ -150,13 +191,32 @@ class Producto{
     }
 }
 
-
+const localStorageInCarrito = ()=>{
+    console.log(carrito)    
+    let carritoLocalStorage =  JSON.parse(localStorage.getItem('carrito'));
+    carrito.push(carritoLocalStorage)
+    console.log(carrito)    
+}
 
 const localSto = ()=>{
     console.log(carrito)
-    
     localStorage.setItem('carrito',JSON.stringify(carrito))
-    console.log(localStorage)
+        console.log(localStorage)   
+    
+    // if(carritoLocalStorage == null){        
+         
+        
+    // }else if(carritoLocalStorage.length > 0){
+    //     for(let i = 0; i < carritoLocalStorage.length; i++){
+    //         for(let j = 0; j < carrito.length;j++){
+    //             if(carrito[j].id == carritoLocalStorage[i].id){
+    //                 carritoLocalStorage[i] = carrito[j]
+    //                 localStorage.setItem('carrito',JSON.stringify(carrito))
+    //             }
+    //         }
+    //     }    
+    
+    // }
 }
 
 

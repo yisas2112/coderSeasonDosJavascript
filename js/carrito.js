@@ -16,11 +16,12 @@ for(const produ of produtosElegidos){
     
     principal.innerHTML = `
     <div class="card" style="width: 18rem;">
-            <img src=${produ.img} class="card-img-top" alt="...">
+            <img src='${produ.img}' class="card-img-top" alt="...">
             <div class="card-body">
             <h5 class="card-title">${produ.nombre}</h5>
             <p class="card-text">Marca: ${produ.marca}</p>
             <p class="card-text"> $${produ.precio}</p>
+            <p class="card-text"> Cantidad: ${produ.cantidad}</p>
             </div>
             <ul class="list-group list-group-flush">                            
             <li class="list-group-item">Categoria: ${produ.categoria}</li>
