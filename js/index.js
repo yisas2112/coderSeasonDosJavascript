@@ -1,6 +1,7 @@
-
+/*Validación de Edad del cliente*/
 $(document).ready(function(){    
     let edadLocal =  localStorage.getItem('edad');
+    localStorageInCarrito();
     console.log(edadLocal)
     if(edadLocal == null ){
         console.log('asd')
@@ -185,7 +186,7 @@ class Producto{
 const localStorageInCarrito = ()=>{
     console.log(carrito)    
     let carritoLocalStorage =  JSON.parse(localStorage.getItem('carrito'));
-    carrito.push(carritoLocalStorage)
+    // carrito.push(carritoLocalStorage)
     console.log(carrito)    
 }
 
