@@ -1,6 +1,5 @@
 
-$(document).ready(function(){
-    
+$(document).ready(function(){    
     let edadLocal =  localStorage.getItem('edad');
     console.log(edadLocal)
     if(edadLocal == null ){
@@ -19,18 +18,7 @@ $(document).ready(function(){
 
 
 
-
-
-
-
-
 let contenedor = document.getElementById('main'); 
-
-
-let contador = 0  
-let stockmax = 20;
-
-
 
 function esMenor(){
     let principal = document.createElement('div');
@@ -42,6 +30,8 @@ function esMenor(){
 }
 
 
+let contador = 0  
+let stockmax = 20;
 
 
 function esMayor(){
@@ -50,10 +40,6 @@ function esMayor(){
         $(principal).addClass( "card__products" );
         $(principal).addClass( "col-3" );
         $(principal).addClass( "text-center");
-        // principal.classList.add("card__products");    
-        // principal.classList.add("col-3");
-        // principal.classList.add("text-center");
-        
         
         principal.innerHTML = `
         <div class="card" style="width: 18rem;">
@@ -66,11 +52,11 @@ function esMayor(){
                 <ul class="list-group list-group-flush">                            
                 <li class="list-group-item">Categoria: ${produ.categoria}</li>
                 </ul>
-                <div class="card-body">
-                <button href="#" class="card-link" onclick={sumarContador(${produ.id},${produ.stock})}>+</button>
+                <div class="card-body">                
+                <button href="#" class="card-link" disable onclick={sumarContador(${produ.id},${produ.stock})}>+</button>
                 <div id="contadorProduct-${produ.id}">${contador}</div>
                 <button href="#" class="card-link" onclick={restarContador(${produ.id})}>-</button>   
-                <button onclick=agregarCarrito(${produ.id})>Agregar Carrito</button>         
+                <button disable=${contador = 0} onclick=agregarCarrito(${produ.id})>Agregar Carrito</button>         
                 </div>
             </div>    
         `;
@@ -147,12 +133,12 @@ const agregarCarrito = (id)=>{
     /*En este paso se recorre el array de productos para machear el id de los productos que se muestran en pantalla.
     Además si el producto ya existe en el carrito se le pregunta al usuario si desea actualizar la cantidad*/ 
     for(const produ of productos){                  
-        if(id == produ.id && existeProducto == false) {                
+        if(id == produ.id && existeProducto == false && contador > 0) {                
             producto = new Producto(produ.id, produ.categoria, produ.nombre, produ.marca, produ.precio, produ.stock, contador, produ.img);            
             carrito.push(producto)            
             console.log('no existe')            
             
-        }else if(id == produ.id && existeProducto == true) {                
+        }else if(id == produ.id && existeProducto == true && contador >0) {                
             console.log('ya existe')
             let confirm  = window.confirm('El producto ya existe, desea actualizar la cantidad?')
             if(confirm = true){                
