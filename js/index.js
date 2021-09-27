@@ -1,20 +1,24 @@
 /*Validación de Edad del cliente*/
 $(document).ready(function(){    
-    let edadLocal =  localStorage.getItem('edad');
-    localStorageInCarrito();
+    let edadLocal =  localStorage.getItem('edad');        
     console.log(edadLocal)
     if(edadLocal == null ){
         console.log('asd')
         edadLocal = confirm('¿Sos mayor de 18?');         
         edadLocal == true ? esMayor(): esMenor();
     }else{      
-                
+           
+        
         console.log(edadLocal)       
         edadLocal == 'true' ? esMayor(): esMenor();
         
     }
-
     localStorage.setItem('edad', edadLocal);
+
+    if(localStorage.getItem('carrito') !== null){
+    let carritoLocalStorage =  JSON.parse(localStorage.getItem('carrito'));
+    carrito.push(...carritoLocalStorage)
+    }
 })
 
 
@@ -162,6 +166,8 @@ const agregarCarrito = (id)=>{
     
     console.log(carrito)
     localSto();
+    let verLocal = JSON.parse(localStorage.getItem('carrito'));
+    console.log(verLocal)
     
 }
 
@@ -183,11 +189,10 @@ class Producto{
     }
 }
 
-const localStorageInCarrito = ()=>{
-    console.log(carrito)    
+const localStorageInCarrito = ()=>{    
     let carritoLocalStorage =  JSON.parse(localStorage.getItem('carrito'));
-    // carrito.push(carritoLocalStorage)
-    console.log(carrito)    
+    carrito.push(carritoLocalStorage)
+    
 }
 
 const localSto = ()=>{
@@ -196,7 +201,7 @@ const localSto = ()=>{
         console.log(localStorage)   
     
     // if(carritoLocalStorage == null){        
-         
+
         
     // }else if(carritoLocalStorage.length > 0){
     //     for(let i = 0; i < carritoLocalStorage.length; i++){
