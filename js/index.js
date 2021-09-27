@@ -58,12 +58,12 @@ function esMayor(){
                 <li class="list-group-item">Categoria: ${produ.categoria}</li>
                 </ul>
                 <div class="card-body">                
-                <button href="#" class="card-link" disable onclick={sumarContador(${produ.id},${produ.stock})}>+</button>
-                <div id="contadorProduct-${produ.id}">${contador}</div>
-                <button href="#" class="card-link" onclick={restarContador(${produ.id})}>-</button>   
-                <button disable=${contador = 0} onclick=agregarCarrito(${produ.id})>Agregar Carrito</button>         
+                    <button href="#" class="card-link" disable onclick={sumarContador(${produ.id},${produ.stock})}>+</button>
+                    <div id="contadorProduct-${produ.id}">${contador}</div>
+                    <button href="#" class="card-link" onclick={restarContador(${produ.id})}>-</button>   
+                    <button disable=${contador = 0} onclick=agregarCarrito(${produ.id})>Agregar Carrito</button>         
                 </div>
-            </div>    
+        </div>    
         `;
         
         
@@ -139,15 +139,14 @@ const agregarCarrito = (id)=>{
     Además si el producto ya existe en el carrito se le pregunta al usuario si desea actualizar la cantidad*/ 
     for(const produ of productos){                  
         if(id == produ.id && existeProducto == false && contador > 0) {                
-            producto = new Producto(produ.id, produ.categoria, produ.nombre, produ.marca, produ.precio, produ.stock, contador, produ.img);            
-            carrito.push(producto)            
-            console.log('no existe')            
-            
+            producto = new Producto(produ.id, produ.categoria, produ.nombre, produ.marca, produ.precio, produ.stock, contador, produ.img, total = contador * produ.precio);            
+            console.log(producto.total)
+            carrito.push(producto)      
         }else if(id == produ.id && existeProducto == true && contador >0) {                
             console.log('ya existe')
             let confirm  = window.confirm('El producto ya existe, desea actualizar la cantidad?')
             if(confirm = true){                
-                producto = new Producto(produ.id, produ.categoria, produ.nombre, produ.marca, produ.precio, produ.stock, contador);                
+                producto = new Producto(produ.id, produ.categoria, produ.nombre, produ.marca, produ.precio, produ.stock, contador, produ.img, total = contador * produ.precio);                
                 for(let i = 0; i < carrito.length; i++){                                        
                     if(carrito[i].id == id){
                         carrito[i] = producto
@@ -173,7 +172,7 @@ const agregarCarrito = (id)=>{
 
 
 class Producto{
-    constructor(id,categoria, nombre, marca, precio, stock, cantidad,img){
+    constructor(id,categoria, nombre, marca, precio, stock, cantidad,img, total){
         this.id = id;
         this.categoria = categoria;
         this.nombre = nombre;
@@ -182,6 +181,7 @@ class Producto{
         this.stock = stock;
         this.cantidad = cantidad;
         this.img = img;
+        this.total = total
     }
 
     Carrito(id, contador){
@@ -199,21 +199,6 @@ const localSto = ()=>{
     console.log(carrito)
     localStorage.setItem('carrito',JSON.stringify(carrito))
         console.log(localStorage)   
-    
-    // if(carritoLocalStorage == null){        
-
-        
-    // }else if(carritoLocalStorage.length > 0){
-    //     for(let i = 0; i < carritoLocalStorage.length; i++){
-    //         for(let j = 0; j < carrito.length;j++){
-    //             if(carrito[j].id == carritoLocalStorage[i].id){
-    //                 carritoLocalStorage[i] = carrito[j]
-    //                 localStorage.setItem('carrito',JSON.stringify(carrito))
-    //             }
-    //         }
-    //     }    
-    
-    // }
 }
 
 
