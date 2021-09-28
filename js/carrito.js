@@ -26,7 +26,13 @@ for(const produ of produtosElegidos){
             </div>
             <ul class="list-group list-group-flush">                            
                 <li class="list-group-item">Total: $${produ.total}</li>
-            </ul>            
+            </ul>
+            <div class="card-body">                
+                    <button href="#" class="card-link" onclick={EliminarProducto(${produ.id})}>Eliminar Producto</button>
+                    
+                    
+                    
+                </div>            
     </div>    
     `;
 
@@ -35,3 +41,23 @@ for(const produ of produtosElegidos){
     
 }
 
+
+
+const EliminarProducto = (id)=>{
+    console.log(id)
+    console.log(produtosElegidos)
+    for(const produ of produtosElegidos){
+        if(produ.id == id){
+            console.log(produ)
+            produtosElegidos.splice(produ,1)
+        }
+    }
+    // for(let i = 0; i < produtosElegidos.length;i++){
+    //     console.log(produtosElegidos[i])    
+    //     if(produtosElegidos.id = id){
+    //         produtosElegidos.splice(produtosElegidos[i],1)
+            
+    //     }
+    // }
+    console.log(produtosElegidos)
+}
