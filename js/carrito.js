@@ -16,7 +16,7 @@ for(const produ of produtosElegidos){
     
     
     principal.innerHTML = `
-    <div class="card" style="width: 18rem;">
+    <div id=${produ.id} class="card" style="width: 18rem;">
             <img src='${produ.img}' class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">${produ.nombre}</h5>
@@ -46,18 +46,28 @@ for(const produ of produtosElegidos){
 const EliminarProducto = (id)=>{
     console.log(id)
     console.log(produtosElegidos)
-    for(const produ of produtosElegidos){
-        if(produ.id == id){
-            console.log(produ)
-            produtosElegidos.splice(produ,1)
-        }
-    }
-    // for(let i = 0; i < produtosElegidos.length;i++){
-    //     console.log(produtosElegidos[i])    
-    //     if(produtosElegidos.id = id){
-    //         produtosElegidos.splice(produtosElegidos[i],1)
-            
+    // for(const produ of produtosElegidos){
+    //     console.log(produ)
+    //     if(produ.id == id){
+    //         console.log(produ)
+    //         produtosElegidos.remove(produ)
     //     }
     // }
-    console.log(produtosElegidos)
+
+    for(let i = 0; i < produtosElegidos.length; i++){
+        if(produtosElegidos[i].id == id ){
+            produtosElegidos.splice(i, 1);
+        }
+    }
+    
+    document.getElementById(id).remove()
+    
+    
+}
+
+
+const BorrarProductoDom = ()=>{
+    for(const produ of produtosElegidos){
+        
+    }
 }
