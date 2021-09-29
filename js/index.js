@@ -6,9 +6,7 @@ $(document).ready(function(){
         console.log('asd')
         edadLocal = confirm('¿Sos mayor de 18?');         
         edadLocal == true ? esMayor(): esMenor();
-    }else{      
-           
-        
+    }else{  
         console.log(edadLocal)       
         edadLocal == 'true' ? esMayor(): esMenor();
         

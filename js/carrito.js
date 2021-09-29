@@ -45,15 +45,7 @@ for(const produ of produtosElegidos){
 
 const EliminarProducto = (id)=>{
     console.log(id)
-    console.log(produtosElegidos)
-    // for(const produ of produtosElegidos){
-    //     console.log(produ)
-    //     if(produ.id == id){
-    //         console.log(produ)
-    //         produtosElegidos.remove(produ)
-    //     }
-    // }
-
+    console.log(produtosElegidos) 
     for(let i = 0; i < produtosElegidos.length; i++){
         if(produtosElegidos[i].id == id ){
             produtosElegidos.splice(i, 1);
@@ -61,7 +53,7 @@ const EliminarProducto = (id)=>{
     }
     
     document.getElementById(id).remove()
-    
+    localStorage.setItem('carrito',JSON.stringify(produtosElegidos))
     
 }
 
