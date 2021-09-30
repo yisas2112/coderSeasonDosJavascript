@@ -13,7 +13,6 @@ function mostrarProductos(){
             $(principal).addClass("col-3");
             $(principal).addClass( "text-center");
             
-            
                 principal.innerHTML = `
                 <div id=${produ.id} class="card" style="width: 18rem;">
                         <img src='${produ.img}' class="card-img-top" alt="...">
@@ -41,7 +40,8 @@ function CarritoVacio (){
             $(principal).addClass("col-3");
             $(principal).addClass( "text-center");
 
-    principal.innerHTML = `<h1>Para poder ingresar a la página debe ser mayor de Edad</h1>`;
+    principal.innerHTML = `<h1>Para poder ingresar a la página debe ser mayor de Edad</h1>
+    <a class="nav-link active" aria-current="page" href="./index.html">Home</a>`;
 
     contenedor.appendChild(principal)  
 }
@@ -58,6 +58,7 @@ const EliminarProducto = (id)=>{
     }    
     document.getElementById(id).remove()
     localStorage.setItem('carrito',JSON.stringify(produtosElegidos))
+    location.reload();
     
 }
 
