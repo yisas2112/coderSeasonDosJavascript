@@ -1,8 +1,19 @@
 let contenedor = document.getElementById('main__carrito');
 let produtosElegidos =  JSON.parse(localStorage.getItem('carrito'))
-console.log(produtosElegidos)
 
-produtosElegidos.length > 0 ? mostrarProductos() : CarritoVacio()
+
+produtosElegidos.length > 0 ? mostrarProductos(): CarritoVacio()
+
+function irForm (){    
+    let container = document.getElementById('ir__formulario')
+    principal = document.createElement('a')
+    $(principal).addClass('mx-auto')
+    $(principal).addClass('btn')
+    $(principal).addClass('btn-secondary')
+    principal.href='formulario.html'
+    principal.innerHTML ='Completar Compra'
+    container.appendChild(principal)
+}
 
 function mostrarProductos(){
         for(const produ of produtosElegidos){        
@@ -31,6 +42,7 @@ function mostrarProductos(){
                 </div>    
                 `;
             contenedor.appendChild(principal)   
+            irForm()
         }
 }
 

@@ -1,0 +1,1 @@
+let produtosElegidos =  JSON.parse(localStorage.getItem('carrito'))
