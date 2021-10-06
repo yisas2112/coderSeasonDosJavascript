@@ -181,10 +181,7 @@ class Producto{
         this.img = img;
         this.total = total
     }
-
-    Carrito(id, contador){
-        return `Agregar al carrito: ${contador} del producto id: ${id}`;
-    }
+    
 }
 
 const localStorageInCarrito = ()=>{    
