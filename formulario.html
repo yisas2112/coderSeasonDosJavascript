@@ -46,37 +46,35 @@
         </div>
     </nav>
     <main class='container-fluid'>
-      <div id="formulario">
-        <form class="container col-5 mt-5">
-          <div class="form-row">
-            <div class="mx-auto">
-              <input type="text" class="form-control" placeholder="Apellido y Nombre">
+      <form id="formulario" class="container col-5 mt-5">
+        <div class="form-row">
+          <div class="mx-auto">
+            <input name="nombre_apellido" type="text" class="form-control" placeholder="Apellido y Nombre">
+          </div>
+          <div class="mx-auto mt-2">
+            <input name='mail' type="text" class="form-control" placeholder="Email">
+          </div>
+          <div class="d-flex justify-content-between">
+            <div class="col-7 mt-2">
+              <input name='domicilio' type="text" class="form-control" placeholder="Domicilio">
             </div>
-            <div class="mx-auto mt-2">
-              <input type="text" class="form-control" placeholder="Email">
-            </div>
-            <div class="d-flex justify-content-between">
-              <div class="col-7 mt-2">
-                <input type="text" class="form-control" placeholder="Domicilio">
-              </div>
-              <div class="col-4 ml-2 mt-2">
-                <input type="text" class="form-control" placeholder="Nro.">
-              </div>
-            </div>
-            <div class="d-flex justify-content-between">
-              <div class="col-7 mt-2">
-                <input type="text" class="form-control" placeholder="Cuidad">
-              </div>
-              <div class="col-4 mt-2">
-                <input type="text" class="form-control" placeholder="Código Postal">
-              </div>
+            <div class="col-4 ml-2 mt-2">
+              <input name="numero" type="text" class="form-control" placeholder="Nro.">
             </div>
           </div>
-          <div class="d-flex mt-4 justify-content-end">
-            <button type="submit" class="align-self-end btn btn-primary">Submit</button>
-          </div>          
-        </form>
-      </div>
+          <div class="d-flex justify-content-between">
+            <div class="col-7 mt-2">
+              <input name="localidad" type="text" class="form-control" placeholder="Localidad">
+            </div>
+            <div class="col-4 mt-2">
+              <input name="codigoPostal" type="text" class="form-control" placeholder="Código Postal">
+            </div>
+          </div>
+        </div>
+        <div class="d-flex mt-4 justify-content-end">
+          <button type="submit" class="align-self-end btn btn-primary">Submit</button>
+        </div>          
+      </form>      
       <section class="text-center">
         
       </section>
