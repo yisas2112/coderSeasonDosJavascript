@@ -3,6 +3,7 @@ let produtosElegidos =  JSON.parse(localStorage.getItem('carrito'))
 
 
 produtosElegidos.length > 0 ? mostrarProductos(): CarritoVacio()
+produtosElegidos.length > 0 ? irForm(): '';
 
 function irForm (){    
     let container = document.getElementById('ir__formulario')
@@ -14,6 +15,8 @@ function irForm (){
     principal.innerHTML ='Completar Compra'
     container.appendChild(principal)
 }
+
+
 
 function mostrarProductos(){
         for(const produ of produtosElegidos){        
@@ -42,7 +45,7 @@ function mostrarProductos(){
                 </div>    
                 `;
             contenedor.appendChild(principal)   
-            irForm()
+         
         }
 }
 

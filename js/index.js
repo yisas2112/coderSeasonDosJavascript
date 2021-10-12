@@ -14,8 +14,7 @@ $(document).ready(function(){
     localStorage.setItem('edad', edadLocal);
 
     if(localStorage.getItem('carrito') !== null){
-    let carritoLocalStorage =  JSON.parse(localStorage.getItem('carrito'));
-    carrito.push(...carritoLocalStorage)
+        localStorageInCarrito()
     }
 })
 
@@ -186,7 +185,7 @@ class Producto{
 
 const localStorageInCarrito = ()=>{    
     let carritoLocalStorage =  JSON.parse(localStorage.getItem('carrito'));
-    carrito.push(carritoLocalStorage)
+    carrito.push(...carritoLocalStorage)
     
 }
 
