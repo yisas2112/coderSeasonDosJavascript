@@ -5,6 +5,7 @@ console.log(produtosElegidos)
 console.log(ordenDeCompra)
 
 
+
 class OrdenCompra{
     constructor(nombreCompleto, email, domicilio, numDomi, localidad, codigoPostal, productos, numOrden){
         this.nombreCompleto = nombreCompleto;
@@ -46,8 +47,11 @@ form.addEventListener('submit', function(event){
         console.log(produtosElegidos)
     }else{        
         console.log('existe')
-        console.log(ordenDeCompra.numOrden)
-        numOrder = ordenDeCompra.numOrden + 1
+        for(let num of ordenDeCompra){
+            numOrder = num.numOrden
+        }
+        
+        numOrder++
         console.log(ordenDeCompraLocal)
         ordenDeCompraLocal = ordenDeCompra;
         console.log(ordenDeCompraLocal)
