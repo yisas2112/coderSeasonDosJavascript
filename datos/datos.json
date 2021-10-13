@@ -1,8 +1,8 @@
-    [
-        {"id": 1, "categoria": "Aperitivo","nombre": "Vodka Smirnof", "marca": "Smornof", "precio": 500, "stock": 60},
-        {"id": 2, "categoria": "Wisky", "nombre": "Whisky Jonnie Walker Black label 700cc", "marca": "Jonnie Walker Black", "precio": 4500, "stock": 60},
-        {"id": 3, "categoria": "Champagne", "nombre": "Champagne Chandon", "marca": "Chandon", "precio": 680, "stock": 60},
-        {"id": 4, "categoria": "Aperitivo", "nombre": "Bailey's", "marca": "Bailey's", "precio": 1450, "stock": 60},
-        {"id": 5, "categoria": "Vinos", "nombre": "Vino Trumpeter Malbec", "marca": "Trumpeter", "precio": 550, "stock": 60},
-        {"id": 6, "categoria": "Aperitivo", "nombre": "Vodka Bombay 750ML", "marca": "Bombay", "precio": 2050, "stock": 60}
-    ]
+[
+    {"id": 1, "categoria": "Aperitivo","nombre": "Vodka Smirnof", "marca": "Smornof", "precio": 500, "stock": 60},
+    {"id": 2, "categoria": "Wisky", "nombre": "Whisky Jonnie Walker Black label 700cc", "marca": "Jonnie Walker Black", "precio": 4500, "stock": 60},
+    {"id": 3, "categoria": "Champagne", "nombre": "Champagne Chandon", "marca": "Chandon", "precio": 680, "stock": 60},
+    {"id": 4, "categoria": "Aperitivo", "nombre": "Bailey's", "marca": "Bailey's", "precio": 1450, "stock": 60},
+    {"id": 5, "categoria": "Vinos", "nombre": "Vino Trumpeter Malbec", "marca": "Trumpeter", "precio": 550, "stock": 60},
+    {"id": 6, "categoria": "Aperitivo", "nombre": "Vodka Bombay 750ML", "marca": "Bombay", "precio": 2050, "stock": 60}
+]
