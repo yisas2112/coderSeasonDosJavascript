@@ -14,7 +14,7 @@ class OrdenCompra{
         this.numDomi = numDomi;
         this.Localidad = localidad;
         this.codigoPostal = codigoPostal;
-        this.productos = [productos];
+        this.productos = productos;
         this.numOrden = numOrden;
     }
 
@@ -26,7 +26,7 @@ class OrdenCompra{
 
 
 
-let numOrder = 0
+let numOrder = 1000
 let ordenDeCompraLocal = []
 
 
@@ -39,9 +39,8 @@ form.addEventListener('submit', function(event){
     let formData = new FormData(form)    
 
     if(ordenDeCompra == null){
-        console.log('No existe')
-        numOrder = 1
-        let prueba = new OrdenCompra(formData.get('nombre_apellido'),formData.get('mail'),formData.get('domicilio'),formData.get('numero'),formData.get('localidad'), formData.get('codigoPostal'), JSON.parse(localStorage.getItem('carrito')), numOrder )
+        console.log('No existe')        
+        let prueba = new OrdenCompra(formData.get('nombre_apellido'),formData.get('mail'),formData.get('domicilio'),formData.get('numero'),formData.get('localidad'), formData.get('codigoPostal'), produtosElegidos, numOrder )
         console.log(prueba)    
         ordenDeCompraLocal.push(prueba)
         console.log(produtosElegidos)
@@ -55,7 +54,7 @@ form.addEventListener('submit', function(event){
         console.log(ordenDeCompraLocal)
         ordenDeCompraLocal = ordenDeCompra;
         console.log(ordenDeCompraLocal)
-        let prueba = new OrdenCompra(formData.get('nombre_apellido'),formData.get('mail'),formData.get('domicilio'),formData.get('numero'),formData.get('localidad'), formData.get('codigoPostal'), JSON.parse(localStorage.getItem('carrito')), numOrder )
+        let prueba = new OrdenCompra(formData.get('nombre_apellido'),formData.get('mail'),formData.get('domicilio'),formData.get('numero'),formData.get('localidad'), formData.get('codigoPostal'), produtosElegidos, numOrder )
         console.log(prueba)    
         ordenDeCompraLocal.push(prueba)
         console.log(ordenDeCompraLocal)
