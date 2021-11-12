@@ -4,6 +4,11 @@ console.log(produtosElegidos)
 
 produtosElegidos.length > 0 ? mostrarProductos(): CarritoVacio()
 produtosElegidos.length > 0 ? irForm(): '';
+produtosElegidos.length > 0 ? totalCompra(): '';
+
+let totalComp = {
+    precioTotal: 0
+} 
 
 function irForm (){    
     let container = document.getElementById('ir__formulario')
@@ -14,14 +19,13 @@ function irForm (){
     principal.href='formulario.html'
     principal.innerHTML ='Completar Compra'
     container.appendChild(principal)
+    produtosElegidos.push(totalComp)
 }
 
 
 
 function mostrarProductos(){
         for(const produ of produtosElegidos){        
-            console.log(produ.length)
-            
             let principal = document.createElement('div');
             $(principal).addClass( "card__products" );
             $(principal).addClass("col-3");
@@ -77,3 +81,23 @@ const EliminarProducto = (id)=>{
     
 }
 
+function totalCompra(){
+           
+    for(let total of produtosElegidos){
+        totalComp.precioTotal += total.precio * total.cantidad
+        
+    }
+    let principal = document.getElementById('total__compra')
+    let container = document.createElement('div')
+    container.classList.add('totalCompra')    
+    container.classList.add('container')    
+    container.classList.add('mx-auto')    
+    container.classList.add('border')    
+    container.classList.add('border-primary')    
+    container.classList.add('w-50')    
+    container.classList.add('d-flex')    
+    container.classList.add('mb-3')    
+    container.classList.add('justify-content-center')    
+    container.innerHTML= `Precio Total: $${totalCompra.precioTotal}`
+    principal.appendChild(container)  
+}
