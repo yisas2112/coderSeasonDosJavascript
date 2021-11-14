@@ -29,6 +29,13 @@
     width: 10px;
     color: red;
     margin: auto;
+}
 
+.logo__los__ebrios{
+    width: 10%;
+    height: 10%;
+}
 
+.link_logo{
+    margin: 0;
 }

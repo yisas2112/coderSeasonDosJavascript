@@ -48,8 +48,7 @@ form.addEventListener('submit', function(event){
         console.log('existe')
         for(let num of ordenDeCompra){
             numOrder = num.numOrden
-        }
-        
+        }        
         numOrder++
         console.log(ordenDeCompraLocal)
         ordenDeCompraLocal = ordenDeCompra;
@@ -59,15 +58,8 @@ form.addEventListener('submit', function(event){
         ordenDeCompraLocal.push(prueba)
         console.log(ordenDeCompraLocal)
     }
-    
-
-
-    
-
     localStorage.setItem('ordencompra',JSON.stringify(ordenDeCompraLocal))
     localStorage.setItem('carrito',JSON.stringify([]))
-    
-
      
 })
 

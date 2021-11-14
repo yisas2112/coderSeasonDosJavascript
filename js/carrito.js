@@ -1,26 +1,43 @@
 let contenedor = document.getElementById('main__carrito');
-let produtosElegidos =  JSON.parse(localStorage.getItem('carrito'))
-console.log(produtosElegidos)
+let productosLocalStorage =  JSON.parse(localStorage.getItem('carrito'))
 
-produtosElegidos.length > 0 ? mostrarProductos(): CarritoVacio()
-produtosElegidos.length > 0 ? irForm(): '';
-produtosElegidos.length > 0 ? totalCompra(): '';
+let produtosElegidos = productosLocalStorage.filter(function(e){
+    return !e.precioTotal
+})
+
+
 
 let totalComp = {
     precioTotal: 0
 } 
 
-function irForm (){    
+
+
+produtosElegidos.length > 0 ? mostrarProductos(): CarritoVacio()
+produtosElegidos.length > 0 ? buttonIrForm(): '';
+produtosElegidos.length > 0 ? totalCompra(): '';
+
+
+
+function buttonIrForm (){    
     let container = document.getElementById('ir__formulario')
     principal = document.createElement('a')
     $(principal).addClass('mx-auto')
     $(principal).addClass('btn')
     $(principal).addClass('btn-secondary')
     principal.href='formulario.html'
+    principal.setAttribute("onclick","irForm()");
     principal.innerHTML ='Completar Compra'
     container.appendChild(principal)
-    produtosElegidos.push(totalComp)
+    
 }
+
+const irForm=()=>{
+    produtosElegidos.push(totalComp)
+    console.log(produtosElegidos)
+    localStorage.setItem('carrito',JSON.stringify(produtosElegidos))
+}
+
 
 
 
@@ -81,11 +98,9 @@ const EliminarProducto = (id)=>{
     
 }
 
-function totalCompra(){
-           
-    for(let total of produtosElegidos){
-        totalComp.precioTotal += total.precio * total.cantidad
-        
+function totalCompra(){               
+    for(let total of produtosElegidos){        
+        totalComp.precioTotal += total.precio * total.cantidad        
     }
     let principal = document.getElementById('total__compra')
     let container = document.createElement('div')
@@ -98,6 +113,8 @@ function totalCompra(){
     container.classList.add('d-flex')    
     container.classList.add('mb-3')    
     container.classList.add('justify-content-center')    
-    container.innerHTML= `Precio Total: $${totalCompra.precioTotal}`
+    container.innerHTML= `Precio Total: $${totalComp.precioTotal}`;
     principal.appendChild(container)  
 }
+
+
