@@ -36,3 +36,7 @@
     height: 3.125rem;
 }
 
+#navbarsExample07{
+    flex-grow: 0;
+    
+}
