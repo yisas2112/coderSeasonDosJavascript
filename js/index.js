@@ -1,24 +1,25 @@
 /*Validación de Edad del cliente*/
-$(document).ready(function(){    
+document.addEventListener("DOMContentLoaded", function() {
     let edadLocal =  localStorage.getItem('edad');        
     console.log(edadLocal)
-    if(edadLocal == null ){
-        console.log('asd')
-        edadLocal = confirm('¿Sos mayor de 18?');         
-        edadLocal == true ? esMayor(): esMenor();
-    }else{  
-        console.log(edadLocal)       
-        edadLocal == 'true' ? esMayor(): esMenor();
+    // if(edadLocal == null ){
+    //     console.log('asd')        
+    //     edadLocal = confirm('¿Sos mayor de 18?');         
+    //     edadLocal == true ? esMayor(): esMenor();
+    // }else{  
+    //     console.log(edadLocal)       
+    //     edadLocal == 'true' ? esMayor(): esMenor();
         
-    }
-    localStorage.setItem('edad', edadLocal);
+    // }
+    // localStorage.setItem('edad', edadLocal);
+    document.querySelector("#staticBackdrop").style.display = "inline";
 
     if(localStorage.getItem('carrito') !== null){
         localStorageInCarrito()
     }
-})
 
 
+});
 
 let contenedor = document.getElementById('main'); 
 
