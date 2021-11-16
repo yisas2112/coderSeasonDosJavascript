@@ -1,20 +1,26 @@
 /*Validación de Edad del cliente*/
-
-document.addEventListener("DOMContentLoaded", ()=> {
+document.addEventListener("DOMContentLoaded", function() {
     let edadLocal =  localStorage.getItem('edad');        
     console.log(edadLocal)
-    prueba()
+    if(edadLocal == null ){        
+        preguntarEdad()
+    }
      
-});
+    localStorage.setItem('edad', edadLocal);
+    
 
+    if(localStorage.getItem('carrito') !== null){
+        localStorageInCarrito()
+    }
+});
 
 // document.addEventListener("DOMContentLoaded", function() {
 //     let edadLocal =  localStorage.getItem('edad');        
 //     console.log(edadLocal)
 //     if(edadLocal == null ){
 //         console.log('asd')        
-//         edadLocal = confirm('¿Sos mayor de 18?');         
-//         edadLocal = confirm('¿Sos mayor de 18?');         
+//         edadLocal = preguntarEdad()
+//         //edadLocal = confirm('¿Sos mayor de 18?');         
 //         edadLocal == true ? esMayor(): esMenor();
 //     }else{  
 //         console.log(edadLocal)       
@@ -29,15 +35,17 @@ document.addEventListener("DOMContentLoaded", ()=> {
 //     }
 // });
 
-function prueba(){    
-    $(window).on('load', function() {
-        $('#staticBackdrop').modal('show');
-    });
-    document.querySelector("#staticBackdrop").style.display = "inline";
+function preguntarEdad(){    
+    let myModal = new bootstrap.Modal(document.getElementById("staticBackdrop"), {});
+    document.onreadystatechange = function () {
+    myModal.show();
+    };
+        
 }
 
 let contenedor = document.getElementById('main');
 function esMenor(){
+    edadLocal = false
     let principal = document.createElement('div');
 
     principal.innerHTML = `<h1>Para poder ingresar a la página debe ser mayor de Edad</h1>`
@@ -50,6 +58,7 @@ function esMenor(){
 let contador = 0  
 let stockmax = 20;
 function esMayor(){
+    edadLocal = true
     for(const produ of productos){        
         let principal = document.createElement('div');
         $(principal).addClass( "card__products" );
