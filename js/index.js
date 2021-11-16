@@ -1,28 +1,42 @@
 /*Validación de Edad del cliente*/
-document.addEventListener("DOMContentLoaded", function() {
+
+document.addEventListener("DOMContentLoaded", ()=> {
     let edadLocal =  localStorage.getItem('edad');        
     console.log(edadLocal)
-    // if(edadLocal == null ){
-    //     console.log('asd')        
-    //     edadLocal = confirm('¿Sos mayor de 18?');         
-    //     edadLocal == true ? esMayor(): esMenor();
-    // }else{  
-    //     console.log(edadLocal)       
-    //     edadLocal == 'true' ? esMayor(): esMenor();
-        
-    // }
-    // localStorage.setItem('edad', edadLocal);
-    document.querySelector("#staticBackdrop").style.display = "inline";
-
-    if(localStorage.getItem('carrito') !== null){
-        localStorageInCarrito()
-    }
-
-
+    prueba()
+     
 });
 
-let contenedor = document.getElementById('main'); 
 
+// document.addEventListener("DOMContentLoaded", function() {
+//     let edadLocal =  localStorage.getItem('edad');        
+//     console.log(edadLocal)
+//     if(edadLocal == null ){
+//         console.log('asd')        
+//         edadLocal = confirm('¿Sos mayor de 18?');         
+//         edadLocal = confirm('¿Sos mayor de 18?');         
+//         edadLocal == true ? esMayor(): esMenor();
+//     }else{  
+//         console.log(edadLocal)       
+//         edadLocal == 'true' ? esMayor(): esMenor();
+        
+//     }
+//     localStorage.setItem('edad', edadLocal);
+    
+
+//     if(localStorage.getItem('carrito') !== null){
+//         localStorageInCarrito()
+//     }
+// });
+
+function prueba(){    
+    $(window).on('load', function() {
+        $('#staticBackdrop').modal('show');
+    });
+    document.querySelector("#staticBackdrop").style.display = "inline";
+}
+
+let contenedor = document.getElementById('main');
 function esMenor(){
     let principal = document.createElement('div');
 
@@ -35,8 +49,6 @@ function esMenor(){
 
 let contador = 0  
 let stockmax = 20;
-
-
 function esMayor(){
     for(const produ of productos){        
         let principal = document.createElement('div');
@@ -63,8 +75,6 @@ function esMayor(){
                 </div>
         </div>    
         `;
-        
-        
         contenedor.appendChild(principal)   
     }
 }
