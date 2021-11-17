@@ -1,39 +1,18 @@
-/*Validación de Edad del cliente*/
 document.addEventListener("DOMContentLoaded", function() {
-    let edadLocal =  localStorage.getItem('edad');        
-    console.log(edadLocal)
-    if(edadLocal == null ){        
+    /*Validación de Edad del cliente*/
+    let edadLocal =  localStorage.getItem('edad');            
+    if(edadLocal == null || edadLocal == 'null'){           
         preguntarEdad()
+    }else if( edadLocal == 'true'){        
+        esMayor()        
     }
-     
-    localStorage.setItem('edad', edadLocal);
-    
-
+   
+    //Recuperamos los datos del carrito del localStorage
     if(localStorage.getItem('carrito') !== null){
         localStorageInCarrito()
     }
 });
 
-// document.addEventListener("DOMContentLoaded", function() {
-//     let edadLocal =  localStorage.getItem('edad');        
-//     console.log(edadLocal)
-//     if(edadLocal == null ){
-//         console.log('asd')        
-//         edadLocal = preguntarEdad()
-//         //edadLocal = confirm('¿Sos mayor de 18?');         
-//         edadLocal == true ? esMayor(): esMenor();
-//     }else{  
-//         console.log(edadLocal)       
-//         edadLocal == 'true' ? esMayor(): esMenor();
-        
-//     }
-//     localStorage.setItem('edad', edadLocal);
-    
-
-//     if(localStorage.getItem('carrito') !== null){
-//         localStorageInCarrito()
-//     }
-// });
 
 function preguntarEdad(){    
     let myModal = new bootstrap.Modal(document.getElementById("staticBackdrop"), {});
@@ -44,14 +23,13 @@ function preguntarEdad(){
 }
 
 let contenedor = document.getElementById('main');
-function esMenor(){
-    edadLocal = false
-    let principal = document.createElement('div');
-
+function esMenor(){    
+    edadLocal = null
+    localStorage.setItem('edad', edadLocal);
+    let principal = document.createElement('div');    
     principal.innerHTML = `<h1>Para poder ingresar a la página debe ser mayor de Edad</h1>`
-
     
-    contenedor.appendChild(principal)   
+    contenedor.appendChild(principal) 
 }
 
 
@@ -59,6 +37,7 @@ let contador = 0
 let stockmax = 20;
 function esMayor(){
     edadLocal = true
+    localStorage.setItem('edad', edadLocal);
     for(const produ of productos){        
         let principal = document.createElement('div');
         $(principal).addClass( "card__products" );
@@ -68,19 +47,21 @@ function esMayor(){
         principal.innerHTML = `
         <div class="card" style="width: 18rem;">
                 <img src=${produ.img} class="card-img-top" alt="...">
-                <div class="card-body">
-                <h5 class="card-title">${produ.nombre}</h5>
-                <p class="card-text">Marca: ${produ.marca}</p>
-                <p class="card-text"> $${produ.precio}</p>
+                <div class="card-body d-flex">
+                    <h5 class="card-title">${produ.nombre}</h5>
+                    <p class="card-text">Marca: ${produ.marca}</p>
+                    <p class="card-text"> $${produ.precio}</p>
                 </div>
                 <ul class="list-group list-group-flush">                            
-                <li class="list-group-item">Categoria: ${produ.categoria}</li>
+                    <li class="list-group-item">Categoria: ${produ.categoria}</li>
                 </ul>
-                <div class="card-body">                
-                    <button href="#" class="card-link" disable onclick={sumarContador(${produ.id},${produ.stock})}>+</button>
-                    <div id="contadorProduct-${produ.id}">${contador}</div>
-                    <button href="#" class="card-link" onclick={restarContador(${produ.id})}>-</button>   
-                    <button disable=${contador = 0} onclick=agregarCarrito(${produ.id})>Agregar Carrito</button>         
+                <div class="card-body">  
+                    <div class="d-flex justify-content-center mb-2">
+                        <button href="#" class="btn btn-info" disable onclick={sumarContador(${produ.id},${produ.stock})}>+</button>
+                        <div class="mx-3" id="contadorProduct-${produ.id}">${contador}</div>
+                        <button href="#" class="btn btn-info" onclick={restarContador(${produ.id})}>-</button>   
+                    </div>                              
+                    <button class="btn btn-info mt-1" disable=${contador = 0} onclick=agregarCarrito(${produ.id})>Agregar Carrito</button>         
                 </div>
         </div>    
         `;
