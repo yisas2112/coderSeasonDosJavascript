@@ -47,9 +47,9 @@ function esMayor(){
         principal.innerHTML = `
         <div class="card" style="width: 18rem;">
                 <img src=${produ.img} class="card-img-top" alt="...">
-                <div class="card-body d-flex">
+                <div class="card-body d-flex flex-column">
                     <h5 class="card-title">${produ.nombre}</h5>
-                    <p class="card-text">Marca: ${produ.marca}</p>
+                    <p class="card-text"><b>Marca</b>: ${produ.marca}</p>
                     <p class="card-text"> $${produ.precio}</p>
                 </div>
                 <ul class="list-group list-group-flush">                            
@@ -58,7 +58,7 @@ function esMayor(){
                 <div class="card-body">  
                     <div class="d-flex justify-content-center mb-2">
                         <button href="#" class="btn btn-info" disable onclick={sumarContador(${produ.id},${produ.stock})}>+</button>
-                        <div class="mx-3" id="contadorProduct-${produ.id}">${contador}</div>
+                        <span class="my-auto mx-3" id="contadorProduct-${produ.id}">${contador}</span>
                         <button href="#" class="btn btn-info" onclick={restarContador(${produ.id})}>-</button>   
                     </div>                              
                     <button class="btn btn-info mt-1" disable=${contador = 0} onclick=agregarCarrito(${produ.id})>Agregar Carrito</button>         
