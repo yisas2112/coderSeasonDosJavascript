@@ -22,6 +22,17 @@ function preguntarEdad(){
         
 }
 
+function productoAgregado(){ 
+    let prueba = document.getElementById("exampleModal");
+    $(prueba).modal({
+        show: 'false'
+    }); 
+   
+
+
+
+}                    
+
 let contenedor = document.getElementById('main');
 function esMenor(){    
     edadLocal = null
@@ -61,7 +72,7 @@ function esMayor(){
                         <span class="my-auto mx-3" id="contadorProduct-${produ.id}">${contador}</span>
                         <button href="#" class="btn btn-info" onclick={restarContador(${produ.id})}>-</button>   
                     </div>                              
-                    <button class="btn btn-info mt-1" disable=${contador = 0} onclick=agregarCarrito(${produ.id})>Agregar Carrito</button>         
+                    <button data-bs-target="#exampleModal" class="btn btn-info mt-1" disable=${contador = 0} onclick="agregarCarrito(${produ.id}); productoAgregado();">Agregar Carrito</button>         
                 </div>
         </div>    
         `;
