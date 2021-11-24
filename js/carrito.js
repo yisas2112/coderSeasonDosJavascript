@@ -21,10 +21,11 @@ produtosElegidos.length > 0 ? totalCompra(): '';
 
 function buttonIrForm (){    
     let container = document.getElementById('ir__formulario')
-    principal = document.createElement('a')
-    $(principal).addClass('mx-auto')
-    $(principal).addClass('btn')
-    $(principal).addClass('btn-secondary')
+    principal = document.createElement('a')    
+    principal.classList.add('mx-auto')        
+    principal.classList.add('btn')        
+    principal.classList.add('btn-secondary')            
+    principal.classList.add('w-50')            
     principal.href='formulario.html'
     principal.setAttribute("onclick","irForm()");
     principal.innerHTML ='Completar Compra'
@@ -61,7 +62,7 @@ function mostrarProductos(){
                             <li class="list-group-item">Total: $${produ.total}</li>
                         </ul>
                         <div class="card-body">                
-                                <button href="#" class="card-link" onclick={EliminarProducto(${produ.id})}>Eliminar Producto</button>
+                                <button href="#" class="card-link" onclick="EliminarProducto(${produ.id})">Eliminar Producto</button>
                         </div>            
                 </div>    
                 `;
@@ -84,7 +85,7 @@ function CarritoVacio (){
 
 
 
-const EliminarProducto = (id)=>{
+function EliminarProducto(id){
     console.log(id)
     console.log(produtosElegidos) 
     for(let i = 0; i < produtosElegidos.length; i++){
