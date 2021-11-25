@@ -22,8 +22,7 @@ function preguntarEdad(){
         
 }
 
-function productoAgregado(){ 
-    console.log('ads')
+function productoAgregado(){     
     let myModal = new bootstrap.Modal(document.getElementById("productoAgregado"), {});
     myModal.show();
 }                    
@@ -67,7 +66,7 @@ function esMayor(){
                         <span class="my-auto mx-3" id="contadorProduct-${produ.id}">${contador}</span>
                         <button href="#" class="btn btn-info" onclick={restarContador(${produ.id})}>-</button>   
                     </div>                              
-                    <button data-bs-target="#exampleModal" class="btn btn-info mt-1" disable=${contador = 0} onclick="agregarCarrito(${produ.id}); productoAgregado();">Agregar Carrito</button>         
+                    <button data-bs-target="#exampleModal" class="btn btn-info mt-1" disable=${contador = 0} onclick="agregarCarrito(${produ.id})">Agregar Carrito</button>         
                 </div>
         </div>    
         `;
@@ -122,7 +121,7 @@ const restarContador = (valor)=>{
 
 /*Este array es donde se crean los objetos de productos*/
 let producto = []
-
+let confirma = false
 /*Y este array es el de los productos que están en el carrito*/
 let carrito = [];
 
@@ -135,21 +134,21 @@ const agregarCarrito = (id)=>{
     carrito.forEach((e)=>{        
         if(id === e.id){
             existeProducto = true;
-            console.log('is true')
+            
         }
     })    
 
     /*En este paso se recorre el array de productos para machear el id de los productos que se muestran en pantalla.
     Además si el producto ya existe en el carrito se le pregunta al usuario si desea actualizar la cantidad*/ 
     for(const produ of productos){                  
-        if(id == produ.id && existeProducto == false && contador > 0) {                
+        if(id == produ.id && existeProducto == false && contador > 0) {  
+            productoAgregado()              
             producto = new Producto(produ.id, produ.categoria, produ.nombre, produ.marca, produ.precio, produ.stock, contador, produ.img, total = contador * produ.precio);            
-            console.log(producto.total)
-            carrito.push(producto)      
-        }else if(id == produ.id && existeProducto == true && contador >0) {                
-            console.log('ya existe')
-            let confirm  = window.confirm('El producto ya existe, desea actualizar la cantidad?')
-            if(confirm = true){                
+            
+        }else if(id == produ.id && existeProducto == true && contador >0) {                            
+            productoExistente()                     
+            if(confirma == true){   
+                console.log('cofirma actualización')             
                 producto = new Producto(produ.id, produ.categoria, produ.nombre, produ.marca, produ.precio, produ.stock, contador, produ.img, total = contador * produ.precio);                
                 for(let i = 0; i < carrito.length; i++){                                        
                     if(carrito[i].id == id){
@@ -203,9 +202,39 @@ const localSto = ()=>{
 }
 
 
+function productoExistente(){    
+    let actualiza = true
+    let noActualiza = false
+    let prueba = true;
 
+    let container = document.getElementById('pruebamodal')
+    container.innerHTML = `
+    <div class="modal fade"  id="productoExiste" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">El producto ya existe en el carrito</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>      
+        <div class="modal-body">
+        ¿Desea actualizar la cantidad?
+      </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="${prueba = true}" data-bs-dismiss="modal">Si</button>
+        <button type="button" class="btn btn-secondary" onclick="${prueba = false}" data-bs-dismiss="modal">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    `
+    
+    let myModal = new bootstrap.Modal(document.getElementById("productoExiste"), {});
+    myModal.show();
+}
 
-
-
+const actualizaCarrito = (confirm)=>{    
+    confirma = confirm
+    console.log(typeof(confirma))
+}
 
 
