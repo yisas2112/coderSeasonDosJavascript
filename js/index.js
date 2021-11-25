@@ -23,14 +23,9 @@ function preguntarEdad(){
 }
 
 function productoAgregado(){ 
-    let prueba = document.getElementById("exampleModal");
-    $(prueba).modal({
-        show: 'false'
-    }); 
-   
-
-
-
+    console.log('ads')
+    let myModal = new bootstrap.Modal(document.getElementById("productoAgregado"), {});
+    myModal.show();
 }                    
 
 let contenedor = document.getElementById('main');
