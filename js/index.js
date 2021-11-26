@@ -144,9 +144,11 @@ const agregarCarrito = (id)=>{
         if(id == produ.id && existeProducto == false && contador > 0) {  
             productoAgregado()              
             producto = new Producto(produ.id, produ.categoria, produ.nombre, produ.marca, produ.precio, produ.stock, contador, produ.img, total = contador * produ.precio);            
+            carrito.push(producto)
+            localSto();
+        }else if(id == produ.id && existeProducto == true && contador >0) {
+            confirma = confirm('espo?')                 
             
-        }else if(id == produ.id && existeProducto == true && contador >0) {                            
-            productoExistente()                     
             if(confirma == true){   
                 console.log('cofirma actualización')             
                 producto = new Producto(produ.id, produ.categoria, produ.nombre, produ.marca, produ.precio, produ.stock, contador, produ.img, total = contador * produ.precio);                
@@ -167,7 +169,7 @@ const agregarCarrito = (id)=>{
     })    
     
     console.log(carrito)
-    localSto();
+    localSto()
     let verLocal = JSON.parse(localStorage.getItem('carrito'));
     console.log(verLocal)
     
@@ -199,42 +201,19 @@ const localSto = ()=>{
     console.log(carrito)
     localStorage.setItem('carrito',JSON.stringify(carrito))
         console.log(localStorage)   
+        
 }
 
 
-function productoExistente(){    
-    let actualiza = true
-    let noActualiza = false
-    let prueba = true;
-
-    let container = document.getElementById('pruebamodal')
-    container.innerHTML = `
-    <div class="modal fade"  id="productoExiste" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">El producto ya existe en el carrito</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>      
-        <div class="modal-body">
-        ¿Desea actualizar la cantidad?
-      </div>
-        <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onclick="${prueba = true}" data-bs-dismiss="modal">Si</button>
-        <button type="button" class="btn btn-secondary" onclick="${prueba = false}" data-bs-dismiss="modal">No</button>
-        </div>
-      </div>
-    </div>
-  </div>
-    `
-    
-    let myModal = new bootstrap.Modal(document.getElementById("productoExiste"), {});
-    myModal.show();
+const getDatos = ()=>{
+    return new Promise((resolve)=>{
+        setTimeout(()=>{
+            resolve('Hola')
+        },2000)
+    })
 }
 
-const actualizaCarrito = (confirm)=>{    
-    confirma = confirm
-    console.log(typeof(confirma))
+const datos = async function(){
+
 }
-
-
+console.log(datos)

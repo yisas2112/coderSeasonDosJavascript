@@ -58,15 +58,32 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>      
       <div class="modal-footer">
-        <a type="link" class="btn btn-primary" data-bs-dismiss="modal" href="./carrito.html" data-bs-dismiss="modal">Ir a Carrito</a>        
+        <a class="btn btn-primary" href="./carrito.html">Ir a Carrito</a>        
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
       </div>
     </div>
   </div>
 </div>
+<!-- Modal  Producto Existente-->
 <!--  Fin Modal -->
-
-
+<div class="modal fade"  id="productoExiste" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">El producto ya existe en el carrito</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>      
+      <div class="modal-body">
+      ¿Desea actualizar la cantidad?
+    </div>
+      <div class="modal-footer">
+      <button type="button" id="btn-si" class="btn btn-primary" onclick="productoExistente(true)" data-bs-dismiss="modal">Si</button>
+      <button type="button" class="btn btn-secondary" onclick="productoExistente(false)" data-bs-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--  Fin Modal -->
 <footer class="row row-cols-5 py-5 my-5 border-top">
   <div class="col">
   <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
