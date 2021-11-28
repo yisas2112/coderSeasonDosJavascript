@@ -26,10 +26,12 @@
         
       </div>
     </div>
-  </nav>
-  <main id="main" class='container-fluid' >    
-  </main>
-  <div id="pruebamodal"></div>
+  </nav>  
+  <main id="main" class='container-fluid' >                    
+    <div id="selects" class="container mt-2">         
+    </div>    
+    <div id="productos" ></div>
+  </main>    
 <!-- Modal  Edad-->
 <div class="modal fade"  id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -64,8 +66,9 @@
     </div>
   </div>
 </div>
-<!-- Modal  Producto Existente-->
 <!--  Fin Modal -->
+
+<!-- Modal  Producto Existente-->
 <div class="modal fade"  id="productoExiste" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -77,8 +80,8 @@
       ¿Desea actualizar la cantidad?
     </div>
       <div class="modal-footer">
-      <button type="button" id="btn-si" class="btn btn-primary" onclick="productoExistente(true)" data-bs-dismiss="modal">Si</button>
-      <button type="button" class="btn btn-secondary" onclick="productoExistente(false)" data-bs-dismiss="modal">No</button>
+      <button type="button" id="modal-btn-si" class="btn btn-primary" data-bs-dismiss="modal">Si</button>
+      <button type="button" id="modal-btn-no" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
       </div>
     </div>
   </div>

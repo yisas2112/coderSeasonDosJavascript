@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
         preguntarEdad()
     }else if( edadLocal == 'true'){        
         esMayor()        
+        seleccionCategoria()
     }
    
     //Recuperamos los datos del carrito del localStorage
@@ -27,7 +28,7 @@ function productoAgregado(){
     myModal.show();
 }                    
 
-let contenedor = document.getElementById('main');
+let contenedor = document.getElementById('productos');
 function esMenor(){    
     edadLocal = null
     localStorage.setItem('edad', edadLocal);
@@ -36,33 +37,60 @@ function esMenor(){
     
     contenedor.appendChild(principal) 
 }
+function seleccionCategoria(){                
+    let contenedor = document.getElementById('selects');
+    let principal = document.createElement('select');
+    principal.classList.add('form-control')
+    principal.classList.add('mt-2')
+         
+    principal.setAttribute('id', 'selectBox')        
+    contenedor.appendChild(principal)
+    let newArray = []    
+    for(const select of productos){        
+        newArray.push(select.categoria)
+    }            
+    const unique = Array.from(new Set(newArray))
+    for(const unico of unique){
+        let contenedor = document.getElementById('selectBox');
+        let principal = document.createElement('option'); 
+        principal.setAttribute('value', unico)
+        principal.innerHTML += `<option selected disabled>Categoría: </option>`
+        principal.innerHTML += `
+                                ${unico}        
+        `
+       contenedor.appendChild(principal)
+        
+    }
+}
+
 
 
 let contador = 0  
 let stockmax = 20;
 function esMayor(){
-    edadLocal = true
+    edadLocal = true    
     localStorage.setItem('edad', edadLocal);
-    for(const produ of productos){        
-        let principal = document.createElement('div');
-        $(principal).addClass( "card__products" );
-        $(principal).addClass( "col-3" );
-        $(principal).addClass( "text-center");
-        
-        principal.innerHTML = `
+    for(const produ of productos){
+        let principal = document.createElement('div');        
+        principal.classList.add( "card__products" );
+        principal.classList.add("col-3");
+        principal.classList.add("text-center");                        
+        principal.innerHTML = `        
         <div class="card" style="width: 18rem;">
-                <img src=${produ.img} class="card-img-top" alt="...">
+                <img src=${produ.img} class="card-img-top mt-2" alt="...">
                 <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">${produ.nombre}</h5>
+                    <div class="container-title">
+                        <h5 class="card-title">${produ.nombre}</h5>
+                    </div>
                     <p class="card-text"><b>Marca</b>: ${produ.marca}</p>
-                    <p class="card-text"> $${produ.precio}</p>
+                    <p class="card-text"> $${new Intl.NumberFormat("de-DE").format(produ.precio)}</p>
                 </div>
                 <ul class="list-group list-group-flush">                            
                     <li class="list-group-item">Categoria: ${produ.categoria}</li>
                 </ul>
                 <div class="card-body">  
-                    <div class="d-flex justify-content-center mb-2">
-                        <button href="#" class="btn btn-info" disable onclick={sumarContador(${produ.id},${produ.stock})}>+</button>
+                    <div class="d-flex justify-content-center mb-2">                        
+                        <button href="#" class="btn btn-info" onclick={sumarContador(${produ.id},${produ.stock})}>+</button>
                         <span class="my-auto mx-3" id="contadorProduct-${produ.id}">${contador}</span>
                         <button href="#" class="btn btn-info" onclick={restarContador(${produ.id})}>-</button>   
                     </div>                              
@@ -70,7 +98,9 @@ function esMayor(){
                 </div>
         </div>    
         `;
+        
         contenedor.appendChild(principal)   
+        
     }
 }
 
@@ -79,19 +109,15 @@ function esMayor(){
 /*CONTADORES*/ 
 /*  Los contadores nunca van a sumar por encima del stock actual ni restar en negativo */
 let id;
-const sumarContador = (valor, valorStock)=>{                     
-    if(id === valor && contador < valorStock ){        
-        console.log('es igual')              
-        contador++;
-        console.log(contador)
+const sumarContador = (valor, valorStock)=>{                       
+    if(id === valor && contador < valorStock ){                
+        contador++;        
         let getClass = document.querySelector(`#contadorProduct-${valor}`);
         getClass.innerHTML= `${contador}`;                
         
     }else if(id !== valor && contador < valorStock){        
-        contador= 0         
-        console.log('No es igual')        
-        contador++;            
-        console.log(contador)
+        contador= 0                 
+        contador++;                    
         let getClass = document.querySelector(`#contadorProduct-${valor}`);
         getClass.innerHTML= `${contador}`;        
         id = valor;
@@ -99,7 +125,7 @@ const sumarContador = (valor, valorStock)=>{
     
 }
 
-/* Boton de Restar Contador de cada car*/ 
+/* Boton de Restar Contador de cada card*/ 
 const restarContador = (valor)=>{
     if(id === valor && contador > 0){
         console.log('es igual')              
@@ -141,24 +167,28 @@ const agregarCarrito = (id)=>{
     /*En este paso se recorre el array de productos para machear el id de los productos que se muestran en pantalla.
     Además si el producto ya existe en el carrito se le pregunta al usuario si desea actualizar la cantidad*/ 
     for(const produ of productos){                  
-        if(id == produ.id && existeProducto == false && contador > 0) {  
-            productoAgregado()              
+        if(id == produ.id && existeProducto == false && contador > 0) {                          
             producto = new Producto(produ.id, produ.categoria, produ.nombre, produ.marca, produ.precio, produ.stock, contador, produ.img, total = contador * produ.precio);            
             carrito.push(producto)
             localSto();
-        }else if(id == produ.id && existeProducto == true && contador >0) {
-            confirma = confirm('espo?')                 
-            
-            if(confirma == true){   
-                console.log('cofirma actualización')             
-                producto = new Producto(produ.id, produ.categoria, produ.nombre, produ.marca, produ.precio, produ.stock, contador, produ.img, total = contador * produ.precio);                
-                for(let i = 0; i < carrito.length; i++){                                        
-                    if(carrito[i].id == id){
-                        carrito[i] = producto
+            productoAgregado()              
+        }else if(id == produ.id && existeProducto == true && contador >0) {                                      
+            let contadorDos = contador
+            modalConfirm(function(confirm){
+                if(confirm){
+                    console.log(contador)
+                    console.log('cofirma actualización')             
+                    producto = new Producto(produ.id, produ.categoria, produ.nombre, produ.marca, produ.precio, produ.stock, contadorDos, produ.img, total = contadorDos * produ.precio);                
+                    for(let i = 0; i < carrito.length; i++){                                        
+                        if(carrito[i].id == id){
+                            carrito[i] = producto
+                        }                        
                     }
+                    console.log(carrito)
+                    localSto();
                     
                 }
-            }
+            });            
         }
         
     } 
@@ -169,7 +199,7 @@ const agregarCarrito = (id)=>{
     })    
     
     console.log(carrito)
-    localSto()
+//    localSto()
     let verLocal = JSON.parse(localStorage.getItem('carrito'));
     console.log(verLocal)
     
@@ -205,15 +235,20 @@ const localSto = ()=>{
 }
 
 
-const getDatos = ()=>{
-    return new Promise((resolve)=>{
-        setTimeout(()=>{
-            resolve('Hola')
-        },2000)
-    })
-}
+let modalConfirm = function(callback){
+    let myModal = new bootstrap.Modal(document.getElementById("productoExiste"), {});
+    myModal.show();
+    // document.getElementById("#modal-btn-si").addEventListener('click',function(){
+    //     callback(true);        
+    // })
+    $("#modal-btn-si").on("click", function(){
+      callback(true);      
+    });
+    
+    $("#modal-btn-no").on("click", function(){
+      callback(false);      
+    });
+  };
 
-const datos = async function(){
 
-}
-console.log(datos)
+

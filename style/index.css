@@ -4,7 +4,7 @@
     padding: 0;
     margin: 0;
 }
-#main, #main__carrito{
+#productos, #main__carrito{
     height: auto;    
     display: flex;    
     justify-content: center;
@@ -26,9 +26,10 @@
 }
 
 .totalCompra{
-    width: 10px;
-    color: red;
-    margin: auto;
+    height: 30px;
+    border-radius: 5px;    
+    
+    
 }
 
 .logo__los__ebrios{
@@ -39,4 +40,14 @@
 #navbarsExample07{
     flex-grow: 0;
     
+}
+
+.container-title{
+    height: 70px;
+    display: flex;    
+    justify-content: center;
+}
+
+.container-title h5{
+    align-self: center;
 }

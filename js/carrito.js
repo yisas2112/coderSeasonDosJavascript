@@ -1,6 +1,7 @@
 let contenedor = document.getElementById('main__carrito');
 let productosLocalStorage =  JSON.parse(localStorage.getItem('carrito'))
 
+
 let produtosElegidos = productosLocalStorage.filter(function(e){
     return !e.precioTotal
 })
@@ -53,16 +54,18 @@ function mostrarProductos(){
                 <div id=${produ.id} class="card" style="width: 18rem;">
                         <img src='${produ.img}' class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">${produ.nombre}</h5>
+                            <div class="container-title">
+                                <h5 class="card-title">${produ.nombre}</h5>
+                            </div>
                             <p class="card-text">Marca: ${produ.marca}</p>
-                            <p class="card-text"> $${produ.precio}</p>
+                            <p class="card-text"> $${new Intl.NumberFormat("de-DE").format(produ.precio)}</p>
                             <p class="card-text"> Cantidad: ${produ.cantidad}</p>
                         </div>
                         <ul class="list-group list-group-flush">                            
-                            <li class="list-group-item">Total: $${produ.total}</li>
+                            <li class="list-group-item">Total: $${new Intl.NumberFormat("de-DE").format(produ.total)}</li>
                         </ul>
                         <div class="card-body">                
-                                <button href="#" class="card-link" onclick="EliminarProducto(${produ.id})">Eliminar Producto</button>
+                                <button href="#" class="btn btn-info" onclick="EliminarProducto(${produ.id})">Eliminar Producto</button>
                         </div>            
                 </div>    
                 `;
@@ -77,7 +80,8 @@ function CarritoVacio (){
             $(principal).addClass("col-3");
             $(principal).addClass( "text-center");
 
-    principal.innerHTML = `<h1>Para poder ingresar a la página debe ser mayor de Edad</h1>
+    principal.innerHTML = `<h1>Carrito vacío</h1>
+    
     <a class="nav-link active" aria-current="page" href="./index.html">Home</a>`;
 
     contenedor.appendChild(principal)  
@@ -108,14 +112,13 @@ function totalCompra(){
     container.classList.add('totalCompra')    
     container.classList.add('container')    
     container.classList.add('mx-auto')    
-    container.classList.add('border')    
+    container.classList.add('bg-info')        
     container.classList.add('border-primary')    
     container.classList.add('w-50')    
     container.classList.add('d-flex')    
     container.classList.add('mb-3')    
     container.classList.add('justify-content-center')    
-    container.innerHTML= `Precio Total: $${totalComp.precioTotal}`;
+    container.innerHTML= `Precio Total: $${new Intl.NumberFormat("de-DE").format(totalComp.precioTotal)}`;
     principal.appendChild(container)  
 }
-
 
