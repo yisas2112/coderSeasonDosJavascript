@@ -42,7 +42,7 @@ function seleccionCategoria(){
     let principal = document.createElement('select');
     principal.classList.add('form-control')
     principal.classList.add('mt-2')
-         
+    principal.setAttribute("onchange","filtro()")         
     principal.setAttribute('id', 'selectBox')        
     contenedor.appendChild(principal)
     let newArray = []    
@@ -53,14 +53,20 @@ function seleccionCategoria(){
     for(const unico of unique){
         let contenedor = document.getElementById('selectBox');
         let principal = document.createElement('option'); 
-        principal.setAttribute('value', unico)
-        principal.innerHTML += `<option selected disabled>Categoría: </option>`
+        principal.setAttribute('value', unico)        
         principal.innerHTML += `
                                 ${unico}        
         `
-       contenedor.appendChild(principal)
-        
+       contenedor.append(principal)           
     }
+
+    let otroOption = document.createElement('option');
+    otroOption.setAttribute('selected', "selected")   
+    otroOption.innerHTML="Todos los Productos"
+    otroOption.setAttribute('value', 'todo')    
+    
+    principal.appendChild(otroOption) 
+
 }
 
 
@@ -252,3 +258,45 @@ let modalConfirm = function(callback){
 
 
 
+  function filtro(){
+    var data_value = document.getElementById("selectBox").value
+    let contenedor = document.getElementById('productos');
+    console.log(data_value)
+    contenedor.innerHTML=""
+    for(const produ of productos){
+        if(produ.categoria == data_value){
+        let principal = document.createElement('div');        
+        principal.classList.add( "card__products" );
+        principal.classList.add("col-3");
+        principal.classList.add("text-center");                        
+        principal.innerHTML = `        
+        <div class="card" style="width: 18rem;">
+                <img src=${produ.img} class="card-img-top mt-2" alt="...">
+                <div class="card-body d-flex flex-column">
+                    <div class="container-title">
+                        <h5 class="card-title">${produ.nombre}</h5>
+                    </div>
+                    <p class="card-text"><b>Marca</b>: ${produ.marca}</p>
+                    <p class="card-text"> $${new Intl.NumberFormat("de-DE").format(produ.precio)}</p>
+                </div>
+                <ul class="list-group list-group-flush">                            
+                    <li class="list-group-item">Categoria: ${produ.categoria}</li>
+                </ul>
+                <div class="card-body">  
+                    <div class="d-flex justify-content-center mb-2">                        
+                        <button href="#" class="btn btn-info" onclick={sumarContador(${produ.id},${produ.stock})}>+</button>
+                        <span class="my-auto mx-3" id="contadorProduct-${produ.id}">${contador}</span>
+                        <button href="#" class="btn btn-info" onclick={restarContador(${produ.id})}>-</button>   
+                    </div>                              
+                    <button data-bs-target="#exampleModal" class="btn btn-info mt-1" disable=${contador = 0} onclick="agregarCarrito(${produ.id})">Agregar Carrito</button>         
+                </div>
+        </div>    
+        `;
+        contenedor.append(principal)
+        }   
+        
+   }
+   if(data_value == "todo"){
+    esMayor()
+    }
+}

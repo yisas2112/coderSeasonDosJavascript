@@ -80,10 +80,10 @@ function CarritoVacio (){
             $(principal).addClass("col-3");
             $(principal).addClass( "text-center");
 
-    principal.innerHTML = `<h1>Carrito vacío</h1>
-    
-    <a class="nav-link active" aria-current="page" href="./index.html">Home</a>`;
-
+    principal.innerHTML = `<div class="d-block">
+                                <h1>Carrito vacío</h1>
+                                <a class="btn btn-primary" class="nav-link active" aria-current="page" href="./index.html">Home</a>
+                            </div>`;
     contenedor.appendChild(principal)  
 }
 
@@ -116,7 +116,8 @@ function totalCompra(){
     container.classList.add('border-primary')    
     container.classList.add('w-50')    
     container.classList.add('d-flex')    
-    container.classList.add('mb-3')    
+    container.classList.add('mb-3')        
+    container.classList.add('align-items-center')        
     container.classList.add('justify-content-center')    
     container.innerHTML= `Precio Total: $${new Intl.NumberFormat("de-DE").format(totalComp.precioTotal)}`;
     principal.appendChild(container)  
