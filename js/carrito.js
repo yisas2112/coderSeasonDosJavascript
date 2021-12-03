@@ -81,7 +81,7 @@ function CarritoVacio (){
             $(principal).addClass( "text-center");
 
     principal.innerHTML = `<div class="d-block">
-                                <h1>Carrito vacío</h1>
+                                <h1 class="my-3">Carrito vacío</h1>
                                 <a class="btn btn-primary" class="nav-link active" aria-current="page" href="./index.html">Home</a>
                             </div>`;
     contenedor.appendChild(principal)  

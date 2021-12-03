@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function() {    
     /*Validación de Edad del cliente*/
     let edadLocal =  localStorage.getItem('edad');            
     if(edadLocal == null || edadLocal == 'null'){           
@@ -11,8 +11,16 @@ document.addEventListener("DOMContentLoaded", function() {
     //Recuperamos los datos del carrito del localStorage
     if(localStorage.getItem('carrito') !== null){
         localStorageInCarrito()
+        
     }
 });
+
+
+let desactivarBtnCarrito = document.getElementById('irCarrito')
+if(localStorage.getItem('carrito') == null){
+    desactivarBtnCarrito.style.pointerEvents= 'none'
+}
+
 
 
 function preguntarEdad(){    
@@ -204,10 +212,7 @@ const agregarCarrito = (id)=>{
         getClass.innerHTML= `${contador = 0}`;    
     })    
     
-    console.log(carrito)
-//    localSto()
-    let verLocal = JSON.parse(localStorage.getItem('carrito'));
-    console.log(verLocal)
+    desactivarBtnCarrito.style.pointerEvents= 'auto'
     
 }
 

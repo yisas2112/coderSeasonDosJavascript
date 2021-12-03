@@ -29,7 +29,7 @@ class OrdenCompra{
 let numOrder = 1000
 let ordenDeCompraLocal = []
 
-
+let prueba
 
 let form = document.getElementById('formulario')
 form.addEventListener('submit', function(event){
@@ -40,7 +40,7 @@ form.addEventListener('submit', function(event){
 
     if(ordenDeCompra == null){
         console.log('No existe')        
-        let prueba = new OrdenCompra(formData.get('nombre_apellido'),formData.get('mail'),formData.get('domicilio'),formData.get('numero'),formData.get('localidad'), formData.get('codigoPostal'), produtosElegidos, numOrder )
+        prueba = new OrdenCompra(formData.get('nombre_apellido'),formData.get('mail'),formData.get('domicilio'),formData.get('numero'),formData.get('localidad'), formData.get('codigoPostal'), produtosElegidos, numOrder )
         console.log(prueba)    
         ordenDeCompraLocal.push(prueba)
         console.log(produtosElegidos)
@@ -53,7 +53,7 @@ form.addEventListener('submit', function(event){
         console.log(ordenDeCompraLocal)
         ordenDeCompraLocal = ordenDeCompra;
         console.log(ordenDeCompraLocal)
-        let prueba = new OrdenCompra(formData.get('nombre_apellido'),formData.get('mail'),formData.get('domicilio'),formData.get('numero'),formData.get('localidad'), formData.get('codigoPostal'), produtosElegidos, numOrder )
+        prueba = new OrdenCompra(formData.get('nombre_apellido'),formData.get('mail'),formData.get('domicilio'),formData.get('numero'),formData.get('localidad'), formData.get('codigoPostal'), produtosElegidos, numOrder )
         console.log(prueba)    
         ordenDeCompraLocal.push(prueba)
         console.log(ordenDeCompraLocal)
@@ -64,5 +64,33 @@ form.addEventListener('submit', function(event){
 })
 
 
-
+function compraFinalizada(){     
+    console.log('asd')
+    let modal = document.getElementById('idModalCompra')
+    let principal = document.createElement('div')
+    console.log(prueba)
+    principal.innerHTML = `
+    <div class="modal fade"  id="modalCompra" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Bienvenido a Ecommerce los Ebrios</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Sos Mayor de 18?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Si</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+    `
+    modal.append(principal)
+    let myModal = new bootstrap.Modal(document.getElementById("modalCompra"), {});
+    myModal.show();
+}      
 
