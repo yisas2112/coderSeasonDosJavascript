@@ -1,13 +1,15 @@
 document.addEventListener("DOMContentLoaded", function() {    
     /*Validación de Edad del cliente*/
-    let edadLocal =  localStorage.getItem('edad');            
+    let edadLocal =  localStorage.getItem('edad');   
+    console.log(edadLocal, typeof(edadLocal))         
     if(edadLocal == null || edadLocal == 'null'){           
         preguntarEdad()
+        seleccionCategoria()
     }else if( edadLocal == 'true'){        
         esMayor()        
         seleccionCategoria()
     }
-   
+    
     //Recuperamos los datos del carrito del localStorage
     if(localStorage.getItem('carrito') !== null){
         localStorageInCarrito()
@@ -38,14 +40,20 @@ function productoAgregado(){
 
 let contenedor = document.getElementById('productos');
 function esMenor(){    
+    let selectCategory = document.getElementById('selects');
+    selectCategory.innerHTML = ''
+
     edadLocal = null
     localStorage.setItem('edad', edadLocal);
-    let principal = document.createElement('div');    
+    let principal = document.createElement('div');
+    principal.classList.add('container')    
+    principal.classList.add('text-center')    
+    principal.classList.add('mt-2')    
     principal.innerHTML = `<h1>Para poder ingresar a la página debe ser mayor de Edad</h1>`
     
     contenedor.appendChild(principal) 
 }
-function seleccionCategoria(){                
+const seleccionCategoria=()=>{                
     let contenedor = document.getElementById('selects');
     let principal = document.createElement('select');
     principal.classList.add('form-control')
@@ -190,15 +198,12 @@ const agregarCarrito = (id)=>{
             let contadorDos = contador
             modalConfirm(function(confirm){
                 if(confirm){
-                    console.log(contador)
-                    console.log('cofirma actualización')             
                     producto = new Producto(produ.id, produ.categoria, produ.nombre, produ.marca, produ.precio, produ.stock, contadorDos, produ.img, total = contadorDos * produ.precio);                
                     for(let i = 0; i < carrito.length; i++){                                        
                         if(carrito[i].id == id){
                             carrito[i] = producto
                         }                        
                     }
-                    console.log(carrito)
                     localSto();
                     
                 }
@@ -239,9 +244,7 @@ const localStorageInCarrito = ()=>{
 }
 
 const localSto = ()=>{
-    console.log(carrito)
     localStorage.setItem('carrito',JSON.stringify(carrito))
-        console.log(localStorage)   
         
 }
 
@@ -249,9 +252,6 @@ const localSto = ()=>{
 let modalConfirm = function(callback){
     let myModal = new bootstrap.Modal(document.getElementById("productoExiste"), {});
     myModal.show();
-    // document.getElementById("#modal-btn-si").addEventListener('click',function(){
-    //     callback(true);        
-    // })
     $("#modal-btn-si").on("click", function(){
       callback(true);      
     });
@@ -266,7 +266,6 @@ let modalConfirm = function(callback){
   function filtro(){
     var data_value = document.getElementById("selectBox").value
     let contenedor = document.getElementById('productos');
-    console.log(data_value)
     contenedor.innerHTML=""
     for(const produ of productos){
         if(produ.categoria == data_value){

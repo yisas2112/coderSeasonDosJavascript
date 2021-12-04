@@ -1,11 +1,6 @@
 let produtosElegidos =  JSON.parse(localStorage.getItem('carrito'))
 let ordenDeCompra =  JSON.parse(localStorage.getItem('ordencompra'))
 
-console.log(produtosElegidos)
-console.log(ordenDeCompra)
-
-
-
 class OrdenCompra{
     constructor(nombreCompleto, email, domicilio, numDomi, localidad, codigoPostal, productos, numOrden){
         this.nombreCompleto = nombreCompleto;
@@ -17,78 +12,72 @@ class OrdenCompra{
         this.productos = productos;
         this.numOrden = numOrden;
     }
-
-    OrdenDeCompra(nombreCompleto, email,domicilio,numDomi,localidad, productos){
-        
+    ordenDeCompra(){
+      let html = ''
+      html = `
+      <div class="modal fade"  id="modalCompra" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Orden de Compra N° ${this.numOrden}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+          Gracias ${this.nombreCompleto} por la compra!
+          </br>
+          A la brevedad nos comunicaremos con vos para finalizar la compra 
+          </div>
+          <div class="modal-footer">
+          <a class="btn btn-primary" href="./index.html">Ir a Carrito</a> 
+          </div>
+        </div>
+      </div>
+    </div>    
+    `
+      return html
     }
+    
 }
-
-
 
 
 let numOrder = 1000
 let ordenDeCompraLocal = []
 
-let prueba
+let compraFinal
 
 let form = document.getElementById('formulario')
 form.addEventListener('submit', function(event){
     event.preventDefault();
-    console.log(ordenDeCompraLocal)
-    console.log(ordenDeCompra)
     let formData = new FormData(form)    
 
     if(ordenDeCompra == null){
-        console.log('No existe')        
-        prueba = new OrdenCompra(formData.get('nombre_apellido'),formData.get('mail'),formData.get('domicilio'),formData.get('numero'),formData.get('localidad'), formData.get('codigoPostal'), produtosElegidos, numOrder )
-        console.log(prueba)    
-        ordenDeCompraLocal.push(prueba)
-        console.log(produtosElegidos)
+        compraFinal = new OrdenCompra(formData.get('nombre_apellido'),formData.get('mail'),formData.get('domicilio'),formData.get('numero'),formData.get('localidad'), formData.get('codigoPostal'), produtosElegidos, numOrder )
+        ordenDeCompraLocal.push(compraFinal)
+
     }else{        
-        console.log('existe')
         for(let num of ordenDeCompra){
             numOrder = num.numOrden
         }        
         numOrder++
-        console.log(ordenDeCompraLocal)
         ordenDeCompraLocal = ordenDeCompra;
-        console.log(ordenDeCompraLocal)
-        prueba = new OrdenCompra(formData.get('nombre_apellido'),formData.get('mail'),formData.get('domicilio'),formData.get('numero'),formData.get('localidad'), formData.get('codigoPostal'), produtosElegidos, numOrder )
-        console.log(prueba)    
-        ordenDeCompraLocal.push(prueba)
-        console.log(ordenDeCompraLocal)
+        compraFinal = new OrdenCompra(formData.get('nombre_apellido'),formData.get('mail'),formData.get('domicilio'),formData.get('numero'),formData.get('localidad'), formData.get('codigoPostal'), produtosElegidos, numOrder )
+        ordenDeCompraLocal.push(compraFinal)
+
     }
     localStorage.setItem('ordencompra',JSON.stringify(ordenDeCompraLocal))
     localStorage.setItem('carrito',JSON.stringify([]))
-     
+    compraFinalizada() 
+    
 })
 
 
-function compraFinalizada(){     
-    console.log('asd')
+
+const compraFinalizada=()=>{
     let modal = document.getElementById('idModalCompra')
     let principal = document.createElement('div')
-    console.log(prueba)
-    principal.innerHTML = `
-    <div class="modal fade"  id="modalCompra" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Bienvenido a Ecommerce los Ebrios</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          ¿Sos Mayor de 18?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Si</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-        </div>
-      </div>
-    </div>
-  </div>
+
+    principal.innerHTML = compraFinal.ordenDeCompra()
     
-    `
     modal.append(principal)
     let myModal = new bootstrap.Modal(document.getElementById("modalCompra"), {});
     myModal.show();
