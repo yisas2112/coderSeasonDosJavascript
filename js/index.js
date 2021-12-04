@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log(edadLocal, typeof(edadLocal))         
     if(edadLocal == null || edadLocal == 'null'){           
         preguntarEdad()
+        //Además
         seleccionCategoria()
     }else if( edadLocal == 'true'){        
         esMayor()        
