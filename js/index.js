@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", function() {    
     /*Validación de Edad del cliente*/
     let edadLocal =  localStorage.getItem('edad');   
-    console.log(edadLocal, typeof(edadLocal))         
     if(edadLocal == null || edadLocal == 'null'){           
         preguntarEdad()
-        //Además
+        //Luego de confirmar edad muestra o no el filtro de categorias
         seleccionCategoria()
-    }else if( edadLocal == 'true'){        
+    }else if( edadLocal == 'true'){ 
+        //Si es mayor muestra los productos, de lo contrario no       
         esMayor()        
         seleccionCategoria()
     }
@@ -18,14 +18,14 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-
+//Si el carrito está vacío desactiva el botón de ir al carrito
 let desactivarBtnCarrito = document.getElementById('irCarrito')
 if(localStorage.getItem('carrito') == null){
     desactivarBtnCarrito.style.pointerEvents= 'none'
 }
 
 
-
+//Función que pregunta al usuario si es mayor o no
 function preguntarEdad(){    
     let myModal = new bootstrap.Modal(document.getElementById("staticBackdrop"), {});
     document.onreadystatechange = function () {
@@ -34,12 +34,14 @@ function preguntarEdad(){
         
 }
 
+//Funión que muestra que el producto ha sido agregado al carrito
 function productoAgregado(){     
     let myModal = new bootstrap.Modal(document.getElementById("productoAgregado"), {});
     myModal.show();
 }                    
 
 let contenedor = document.getElementById('productos');
+//Si al momento de confirmar edad el usuario confirma que no, muestra mensaje de que se requiere ser mayor para entrar a la página
 function esMenor(){    
     let selectCategory = document.getElementById('selects');
     selectCategory.innerHTML = ''
@@ -54,6 +56,8 @@ function esMenor(){
     
     contenedor.appendChild(principal) 
 }
+
+//Función que muestra el filtro de categorías
 const seleccionCategoria=()=>{                
     let contenedor = document.getElementById('selects');
     let principal = document.createElement('select');
@@ -90,6 +94,7 @@ const seleccionCategoria=()=>{
 
 let contador = 0  
 let stockmax = 20;
+//Función que muestra todos los productos
 function esMayor(){
     edadLocal = true    
     localStorage.setItem('edad', edadLocal);
@@ -151,14 +156,12 @@ const sumarContador = (valor, valorStock)=>{
 /* Boton de Restar Contador de cada card*/ 
 const restarContador = (valor)=>{
     if(id === valor && contador > 0){
-        console.log('es igual')              
         contador--;
         let getClass = document.querySelector(`#contadorProduct-${valor}`);
         getClass.innerHTML= `${contador}`;                
         
     }else if(id !== valor && contador >0 ){        
         contador= 0 
-        console.log('No es igual')
         contador--;            
         let getClass = document.querySelector(`#contadorProduct-${valor}`);
         getClass.innerHTML= `${contador}`;        
@@ -193,10 +196,13 @@ const agregarCarrito = (id)=>{
         if(id == produ.id && existeProducto == false && contador > 0) {                          
             producto = new Producto(produ.id, produ.categoria, produ.nombre, produ.marca, produ.precio, produ.stock, contador, produ.img, total = contador * produ.precio);            
             carrito.push(producto)
+            //Los productos agregados al carrito son agregados al localStorage
             localSto();
+            //Modal del producto agregaddo
             productoAgregado()              
         }else if(id == produ.id && existeProducto == true && contador >0) {                                      
             let contadorDos = contador
+            //Modal que confirma si desea actualizar la cantidad del carrito
             modalConfirm(function(confirm){
                 if(confirm){
                     producto = new Producto(produ.id, produ.categoria, produ.nombre, produ.marca, produ.precio, produ.stock, contadorDos, produ.img, total = contadorDos * produ.precio);                
@@ -205,6 +211,7 @@ const agregarCarrito = (id)=>{
                             carrito[i] = producto
                         }                        
                     }
+                    //También se agrega los productos al LocalStorage
                     localSto();
                     
                 }
@@ -217,39 +224,27 @@ const agregarCarrito = (id)=>{
         let getClass = document.querySelector(`#contadorProduct-${e.id}`);
         getClass.innerHTML= `${contador = 0}`;    
     })    
-    
+    //Habilita el botón para ir al carrito
     desactivarBtnCarrito.style.pointerEvents= 'auto'
     
 }
 
 
-class Producto{
-    constructor(id,categoria, nombre, marca, precio, stock, cantidad,img, total){
-        this.id = id;
-        this.categoria = categoria;
-        this.nombre = nombre;
-        this.marca = marca;
-        this.precio = precio;
-        this.stock = stock;
-        this.cantidad = cantidad;
-        this.img = img;
-        this.total = total
-    }
-    
-}
-
+//Función que obtiene los productos del LocalStorage
 const localStorageInCarrito = ()=>{    
     let carritoLocalStorage =  JSON.parse(localStorage.getItem('carrito'));
     carrito.push(...carritoLocalStorage)
     
 }
 
+//Función que agrega los productos los productos del carrito al LocalStorage
 const localSto = ()=>{
     localStorage.setItem('carrito',JSON.stringify(carrito))
         
 }
 
-
+//Función que activa el modal que consulta al usuario si desea actualizar la cantidad de un producto en el carrito
+//Se agregó un función de Callbak que espera la confirmación del usuario
 let modalConfirm = function(callback){
     let myModal = new bootstrap.Modal(document.getElementById("productoExiste"), {});
     myModal.show();
@@ -263,7 +258,7 @@ let modalConfirm = function(callback){
   };
 
 
-
+//Función que muestra los productos que seleccionó el usuario en el select de categorias
   function filtro(){
     var data_value = document.getElementById("selectBox").value
     let contenedor = document.getElementById('productos');

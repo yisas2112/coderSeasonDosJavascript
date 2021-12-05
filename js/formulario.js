@@ -1,50 +1,14 @@
+//Recuperamos del LocalStorage los productos del carrito y las ordenes de commpra
 let produtosElegidos =  JSON.parse(localStorage.getItem('carrito'))
 let ordenDeCompra =  JSON.parse(localStorage.getItem('ordencompra'))
 
-class OrdenCompra{
-    constructor(nombreCompleto, email, domicilio, numDomi, localidad, codigoPostal, productos, numOrden){
-        this.nombreCompleto = nombreCompleto;
-        this.email = email;
-        this.domicilio = domicilio;
-        this.numDomi = numDomi;
-        this.Localidad = localidad;
-        this.codigoPostal = codigoPostal;
-        this.productos = productos;
-        this.numOrden = numOrden;
-    }
-    ordenDeCompra(){
-      let html = ''
-      html = `
-      <div class="modal fade"  id="modalCompra" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Orden de Compra N° ${this.numOrden}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-          Gracias ${this.nombreCompleto} por la compra!
-          </br>
-          A la brevedad nos comunicaremos con vos para finalizar la compra 
-          </div>
-          <div class="modal-footer">
-          <a class="btn btn-primary" href="./index.html">Ir a Carrito</a> 
-          </div>
-        </div>
-      </div>
-    </div>    
-    `
-      return html
-    }
-    
-}
 
 
 let numOrder = 1000
 let ordenDeCompraLocal = []
-
 let compraFinal
 
+//Obtenemos los datos del form
 let form = document.getElementById('formulario')
 form.addEventListener('submit', function(event){
     event.preventDefault();
@@ -71,7 +35,7 @@ form.addEventListener('submit', function(event){
 })
 
 
-
+//Función que dispara el método de la clase Orden de Compra
 const compraFinalizada=()=>{
     let modal = document.getElementById('idModalCompra')
     let principal = document.createElement('div')
