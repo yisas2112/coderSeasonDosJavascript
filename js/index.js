@@ -248,13 +248,13 @@ const localSto = ()=>{
 let modalConfirm = function(callback){
     let myModal = new bootstrap.Modal(document.getElementById("productoExiste"), {});
     myModal.show();
-    $("#modal-btn-si").on("click", function(){
-      callback(true);      
-    });
+    document.getElementById('modal-btn-si').onclick = function (){
+        callback(true);      
+    }    
+    document.getElementById('modal-btn-no').onclick = function (){
+        callback(false);      
+    }
     
-    $("#modal-btn-no").on("click", function(){
-      callback(false);      
-    });
   };
 
 
