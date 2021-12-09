@@ -250,7 +250,8 @@ let modalConfirm = function(callback){
     myModal.show();
     document.getElementById('modal-btn-si').onclick = function (){
         callback(true);      
-    }    
+    }
+    
     document.getElementById('modal-btn-no').onclick = function (){
         callback(false);      
     }
