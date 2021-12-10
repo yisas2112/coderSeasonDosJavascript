@@ -101,7 +101,9 @@ function esMayor(){
     for(const produ of productos){
         let principal = document.createElement('div');        
         principal.classList.add( "card__products" );
-        principal.classList.add("col-3");
+        principal.classList.add("col-lg-3");        
+        principal.classList.add("col-md-3");
+        principal.classList.add("col-sm-4");
         principal.classList.add("text-center");                        
         principal.innerHTML = `        
         <div class="card" style="width: 18rem;">
@@ -268,7 +270,9 @@ let modalConfirm = function(callback){
         if(produ.categoria == data_value){
         let principal = document.createElement('div');        
         principal.classList.add( "card__products" );
-        principal.classList.add("col-3");
+        principal.classList.add("col-lg-3");        
+        principal.classList.add("col-md-3");
+        principal.classList.add("col-sm-4");        
         principal.classList.add("text-center");                        
         principal.innerHTML = `        
         <div class="card" style="width: 18rem;">

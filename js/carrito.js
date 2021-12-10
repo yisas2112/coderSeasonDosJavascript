@@ -80,7 +80,7 @@ function CarritoVacio (){
             $(principal).addClass("col-3");
             $(principal).addClass( "text-center");
 
-    principal.innerHTML = `<div class="d-block">
+    principal.innerHTML = `<div class="d-block m-auto">
                                 <h1 class="my-3">Carrito vacío</h1>
                                 <a class="btn btn-primary" class="nav-link active" aria-current="page" href="./index.html">Home</a>
                             </div>`;
