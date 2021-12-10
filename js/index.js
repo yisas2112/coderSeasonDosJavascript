@@ -305,3 +305,9 @@ let modalConfirm = function(callback){
     esMayor()
     }
 }
+
+
+function prueba(){     
+    let myModal = new bootstrap.Modal(document.getElementById("mModal"), {});
+    myModal.show();
+}                    
