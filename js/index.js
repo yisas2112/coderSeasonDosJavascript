@@ -304,10 +304,67 @@ let modalConfirm = function(callback){
    if(data_value == "todo"){
     esMayor()
     }
+
+    offer(data_value)
 }
 
 
-function prueba(){     
-    let myModal = new bootstrap.Modal(document.getElementById("mModal"), {});
-    myModal.show();
-}                    
+const offer = (value)=>{
+    console.log(value)
+    let productosfiltrados = []
+
+    for(const produ of productos){
+        if(value == produ.categoria){
+            productosfiltrados.push(produ)            
+        }
+    }
+    var item = productosfiltrados[Math.floor(Math.random()*productosfiltrados.length)];    
+    console.log(item.nombre)
+    var data_value = document.getElementById("oferta")
+    var principal = document.createElement('div')
+    principal.innerHTML = `<div class="bbb_deals_featured">
+    <div class="container__offer">
+        <div class="row">
+            <div class="col d-flex flex-lg-row flex-column align-items-center justify-content-center">
+                <!-- bbb_deals -->
+                <div class="bbb_deals">
+                    <div class="ribbon ribbon-top-right"><span>50% OFF</span></div>
+                    <div class="bbb_deals_title">Today's Best Offer</div>
+                    <div class="bbb_deals_slider_container">
+                        <!-- bbb_deals Item -->
+                        <div class=" bbb_deals_item">
+                            <div class="bbb_deals_image"><img src="${item.img}" alt=""></div>
+                            <div class="bbb_deals_content">
+                                <div class="bbb_deals_info_line d-flex flex-row justify-content-start">
+                                    <div class="bbb_deals_item_category"><a href="#">Laptops</a></div>
+                                    <div class="bbb_deals_item_price_a ml-auto">₹30,000</div>
+                                </div>
+                                <div class="bbb_deals_info_line d-flex flex-row justify-content-start">
+                                    <div class="bbb_deals_item_name">${item.nombre}</div>
+                                    <div class="bbb_deals_item_price ml-auto">₹25,550</div>
+                                </div>
+                                <div class="available">
+                                    <div class="available_line d-flex flex-row justify-content-start">
+                                        <div class="available_title">Available: <span>6</span></div>
+                                        <div class="sold_title ml-auto">Already sold: <span>28</span></div>
+                                    </div>
+                                    <div class="available_bar"><span style="width:17%"></span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- Featured -->
+            </div>
+        </div>
+    </div>
+</div>`
+    
+    data_value.append(principal)    
+    // setTimeout(()=>{
+    //     data_value.innerHTML = ''
+    // },9000)
+    
+    
+
+
+}
