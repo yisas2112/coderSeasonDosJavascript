@@ -264,8 +264,9 @@ let modalConfirm = function(callback){
 //Función que muestra los productos que seleccionó el usuario en el select de categorias
   function filtro(){
     var data_value = document.getElementById("selectBox").value
-    let contenedor = document.getElementById('productos');
-    contenedor.innerHTML=""
+    let contenedor = document.getElementById('productos');    
+    document.getElementById('oferta').innerHTML = '';    
+    
     for(const produ of productos){
         if(produ.categoria == data_value){
         let principal = document.createElement('div');        
@@ -309,10 +310,12 @@ let modalConfirm = function(callback){
 }
 
 
-const offer = (value)=>{
-    console.log(value)
+const offer = (value)=>{    
     let productosfiltrados = []
-
+    let prueba = document.getElementById('ModalOferta');
+    if(prueba !== null){
+        prueba.innerHTML = ''
+    }
     for(const produ of productos){
         if(value == produ.categoria){
             productosfiltrados.push(produ)            
@@ -320,9 +323,11 @@ const offer = (value)=>{
     }
     var item = productosfiltrados[Math.floor(Math.random()*productosfiltrados.length)];    
     console.log(item.nombre)
+    
+    
     var data_value = document.getElementById("oferta")
-    var principal = document.createElement('div')
-    principal.innerHTML = `<a href="#"><div class="bbb_deals_featured">
+    var principal = document.createElement('div')    
+    principal.innerHTML = `<a href="#" onclick="idOferta(${item.id})"><div class="bbb_deals_featured">
                                 <div class="container__offer">
                                     <div class="row">
                                         <div class="col d-flex flex-lg-row flex-column align-items-center justify-content-center">
@@ -361,4 +366,74 @@ const offer = (value)=>{
     
 
 
+}
+
+
+const idOferta=(id)=>{    
+    let container = document.getElementById('ModalOferta');
+    let principal = document.createElement('div')
+    let addOfer;
+    let contador = 0
+    console.log(addOfer)
+    for(const produ of productos){
+        
+        if(produ.id == id){
+
+            addOfer = produ
+        }
+    }
+    console.log(addOfer)
+    principal.innerHTML = `    
+        <!-- Modal: modalQuickView -->
+        <div class="modal fade" id="modalQuickView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-5">
+                        <!--Carousel Wrapper-->
+                        <div id="carousel-thumb" class="carousel slide carousel-fade carousel-thumbnails"
+                            data-ride="carousel">
+                            <!--Slides-->
+                            <div class="carousel-inner" role="listbox">
+                                <div class="carousel-item active">
+                                    <img class="d-block w-100"
+                                    src="${addOfer.img}"
+                                    alt="First slide">
+                                </div>
+                                
+                            </div>                        
+                        </div>                    
+                        </div>
+                        <div class="col-lg-7">
+                        <h2 class="h2-responsive product-name">
+                            <strong>${addOfer.nombre}</strong>
+                        </h2>
+                        <h4 class="h4-responsive">
+                            <span class="green-text">
+                            <div class="bbb_deals_item_price ml-auto">  <del>$${addOfer.precio}</del>$${addOfer.precio = addOfer.precio /2}</div>
+                            </span>                            
+                        </h4>
+                        <!-- Add to Cart -->
+                        <div class="card-body text-lg-start text-md-center text-sm-center text-center">                        
+                            <div class="mb-3">        
+                            <button href="#" class="btn btn-info" onclick={sumarContador(${addOfer.id},${addOfer.stock})}>+</button>
+                            <span class="my-auto mx-3" id="contadorProduct-${addOfer.id}">${contador}</span>
+                            <button href="#" class="btn btn-info" onclick={restarContador(${addOfer.id})}>-</button>                               
+                            </div>
+                            <button data-bs-target="#exampleModal" class="btn btn-info mt-1" disable=${contador = 0} onclick="agregarCarrito(${addOfer.id})">Agregar Carrito</button>         
+                        </div>
+                        <!-- /.Add to Cart -->
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            `
+    container.append(principal)
+
+    let myModal = new bootstrap.Modal(document.getElementById("modalQuickView"), {});
+    myModal.show();
 }
