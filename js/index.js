@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorageInCarrito()
         
     }
+    //Llamamos a la función cantidad carrito para actualizar el númerodos del icono flotante del carrito
+    cantidadCarrito()
 });
 
 //Si el carrito está vacío desactiva el botón de ir al carrito
@@ -124,7 +126,7 @@ function esMayor(){
                         <span class="my-auto mx-3" id="contadorProduct-${produ.id}">${contador}</span>
                         <button href="#" class="btn btn-info" onclick={restarContador(${produ.id})}>-</button>   
                     </div>                              
-                    <button data-bs-target="#exampleModal" class="btn btn-info mt-1" disable=${contador = 0} onclick="agregarCarrito(${produ.id})">Agregar Carrito</button>         
+                    <button data-bs-target="#exampleModal" class="btn btn-info mt-1" disable=${contador = 0} onclick="agregarCarrito(${produ.id}); cantidadCarrito()">Agregar Carrito</button>         
                 </div>
         </div>    
         `;
@@ -303,13 +305,14 @@ let modalConfirm = function(callback){
         
    }
    if(data_value == "todo"){
+    //Si se seleciona "Todos los productos" llama a la función que trae a todos
     esMayor()
     }
-
+    //Una vez seleccionado el filtro correspondiente llama a la función que muestra la oferta
     offer(data_value)
 }
 
-
+//Función que muestra un producto al 50% de descuento, en el caso de que se agregue el precio es al 50%
 const offer = (value)=>{    
     let productosfiltrados = []
     let prueba = document.getElementById('ModalOferta');
@@ -327,7 +330,7 @@ const offer = (value)=>{
     
     var data_value = document.getElementById("oferta")
     var principal = document.createElement('div')    
-    principal.innerHTML = `<a href="#" onclick="idOferta(${item.id})"><div class="bbb_deals_featured">
+    principal.innerHTML = `<a href="#" class="text-decoration-none" onclick="idOferta(${item.id})"><div class="bbb_deals_featured">
                                 <div class="container__offer">
                                     <div class="row">
                                         <div class="col d-flex flex-lg-row flex-column align-items-center justify-content-center">
@@ -345,8 +348,7 @@ const offer = (value)=>{
                                                                 
                                                             </div>
                                                             <div class="bbb_deals_info_line d-flex flex-row justify-content-start">
-                                                                <div class="bbb_deals_item_name">${item.nombre}</div>
-                                                                <br>
+                                                                <div class="bbb_deals_item_name">${item.nombre}</div>                                                                
                                                                 <div class="bbb_deals_item_price ml-auto">  <del>$${item.precio}</del>$${item.precio /2}</div>
                                                             </div>                                
                                                         </div>
@@ -368,7 +370,7 @@ const offer = (value)=>{
 
 }
 
-
+//Modal para agregar el producto de la oferta al carrito
 const idOferta=(id)=>{    
     let container = document.getElementById('ModalOferta');
     let principal = document.createElement('div')
@@ -381,8 +383,7 @@ const idOferta=(id)=>{
 
             addOfer = produ
         }
-    }
-    console.log(addOfer)
+    }    
     principal.innerHTML = `    
         <!-- Modal: modalQuickView -->
         <div class="modal fade" id="modalQuickView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -422,7 +423,7 @@ const idOferta=(id)=>{
                             <span class="my-auto mx-3" id="contadorProduct-${addOfer.id}">${contador}</span>
                             <button href="#" class="btn btn-info" onclick={restarContador(${addOfer.id})}>-</button>                               
                             </div>
-                            <button data-bs-target="#exampleModal" class="btn btn-info mt-1" disable=${contador = 0} onclick="agregarCarrito(${addOfer.id})">Agregar Carrito</button>         
+                            <button data-bs-target="#exampleModal" class="btn btn-info mt-1" disable=${contador = 0} onclick="agregarCarrito(${addOfer.id});cantidadCarrito()">Agregar Carrito</button>         
                         </div>
                         <!-- /.Add to Cart -->
                         </div>
@@ -437,3 +438,20 @@ const idOferta=(id)=>{
     let myModal = new bootstrap.Modal(document.getElementById("modalQuickView"), {});
     myModal.show();
 }
+
+
+
+//Función que actualiza el número del carrito flotante
+const cantidadCarrito=()=>{
+    let container = document.getElementById('icono__carrito__flotante__cantidad')    
+    let cantidadCarrito =   JSON.parse(localStorage.getItem('carrito'));
+    if(cantidadCarrito == null){
+        container.innerHTML = `0`
+    }else{
+        container.innerHTML = `${cantidadCarrito.length}`
+    }
+    
+}
+
+
+    

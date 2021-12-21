@@ -1,7 +1,8 @@
 let contenedor = document.getElementById('main__carrito');
+//Recuperamos todos los productos del localStorage
 let productosLocalStorage =  JSON.parse(localStorage.getItem('carrito'))
 
-
+//Recupera todo menos el precioTotal
 let produtosElegidos = productosLocalStorage.filter(function(e){
     return !e.precioTotal
 })
@@ -13,13 +14,15 @@ let totalComp = {
 } 
 
 
-
+//Si hay productos en el carrito muestra los mismos, en caso de que no muestra un mensaje 
 produtosElegidos.length > 0 ? mostrarProductos(): CarritoVacio()
+//Si hay productos en el carrito mostramos el boton para completar la compra
 produtosElegidos.length > 0 ? buttonIrForm(): '';
+//Si hay productos en el carrito mostramos el precio total de la compra
 produtosElegidos.length > 0 ? totalCompra(): '';
 
 
-
+//Función que crea el botón para ir al formulario
 function buttonIrForm (){    
     let container = document.getElementById('ir__formulario')
     principal = document.createElement('a')    
@@ -34,15 +37,15 @@ function buttonIrForm (){
     
 }
 
+//función que pushea el total de la compra a los productos elegidos y actualiza el local storage
 const irForm=()=>{
-    produtosElegidos.push(totalComp)
-    console.log(produtosElegidos)
+    produtosElegidos.push(totalComp)    
     localStorage.setItem('carrito',JSON.stringify(produtosElegidos))
 }
 
 
 
-
+//Función que muestra los productos del carrito
 function mostrarProductos(){
         for(const produ of produtosElegidos){        
             let principal = document.createElement('div');
@@ -73,7 +76,7 @@ function mostrarProductos(){
          
         }
 }
-
+//En el caso de que no haya nada en el carrito del localstorage muestra un mensaje y un botón para ir al home
 function CarritoVacio (){
     let principal = document.createElement('div');
             $(principal).addClass( "card__products" );
@@ -88,21 +91,22 @@ function CarritoVacio (){
 }
 
 
-
-function EliminarProducto(id){
-    console.log(id)
+//Función que elimina un producto del carrito 
+function EliminarProducto(id){    
     console.log(produtosElegidos) 
     for(let i = 0; i < produtosElegidos.length; i++){
         if(produtosElegidos[i].id == id ){
             produtosElegidos.splice(i, 1);
         }
     }    
+    //removemos el producto del html
     document.getElementById(id).remove()
+    //Actualizamos el carrito del LocalStorage
     localStorage.setItem('carrito',JSON.stringify(produtosElegidos))
     location.reload();
     
 }
-
+//Función que calcula el precio total de la compra
 function totalCompra(){               
     for(let total of produtosElegidos){        
         totalComp.precioTotal += total.precio * total.cantidad        
